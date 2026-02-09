@@ -1,10 +1,11 @@
 import { HomeRenderer } from "./core/renders/HomeRenderer";
+import { LayoutRenderer } from "./core/renders/layouts/LayoutRenderer";
 
 function App() {
   return (
-    <main className="min-h-screen flex items-center justify-center">
+    <LayoutRenderer>
       <HomeRenderer />
-    </main>
+    </LayoutRenderer>
   );
 }
 
