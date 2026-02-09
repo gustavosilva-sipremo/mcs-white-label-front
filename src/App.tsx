@@ -4,6 +4,7 @@ import { LayoutRenderer } from "@/core/renders/layouts/LayoutRenderer";
 import { HomeRenderer } from "@/core/renders/HomeRenderer";
 import { UsersRenderer } from "@/core/renders/UsersRenderer";
 import { TermsRenderer } from "@/core/renders/TermsRenderer";
+import { LoginRenderer } from "./core/renders/LoginRenderer";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
 
         {/* Rotas fora do layout */}
         <Route path="/terms" element={<TermsRenderer />} />
+        <Route path="/login" element={<LoginRenderer />} />
       </Routes>
     </BrowserRouter>
   );

@@ -13,6 +13,7 @@
         └── 📁components
             └── 📁others
                 ├── create-user-modal.tsx
+                ├── PageLoader.tsx
                 ├── PasswordFields.tsx
                 ├── PhoneInput.tsx
                 ├── Responsibilities.tsx
@@ -21,6 +22,7 @@
             └── 📁sections
                 ├── Header.tsx
                 ├── Sidebar.tsx
+                ├── Terms.tsx
             └── 📁ui
                 ├── badge.tsx
                 ├── button.tsx
@@ -46,6 +48,7 @@
                 └── 📁layouts
                     ├── LayoutRenderer.tsx
                 ├── HomeRenderer.tsx
+                ├── TermsRenderer.tsx
                 ├── UsersRenderer.tsx
             └── 📁theme
                 ├── theme-provider.tsx
@@ -53,6 +56,7 @@
         └── 📁lib
             ├── utils.ts
         └── 📁mocks
+            ├── mock-terms.ts
             ├── mock-users.ts
         ├── App.tsx
         ├── index.css
