@@ -1,6 +1,14 @@
-import { User, Plus } from "lucide-react";
+import { User, Plus, Download, FileText, FileSpreadsheet } from "lucide-react";
 import { UsersTable } from "@/components/others/users-table";
 import { mockUsers } from "@/mocks/mock-users";
+
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export function UsersRenderer() {
   const hasUsers = mockUsers.length > 0;
@@ -20,26 +28,41 @@ export function UsersRenderer() {
       {/* Container principal */}
       <div className="relative flex flex-1 flex-col rounded-xl border border-border bg-card shadow-sm">
         {/* Top bar */}
-        <div className="flex items-center justify-between gap-4 border-b border-border px-5 py-4">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-5 py-4">
           <span className="text-sm font-medium text-foreground">
             Lista de usuários
           </span>
 
-          <button
-            type="button"
-            disabled
-            className="
-              inline-flex items-center gap-2 rounded-md
-              bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground
-              transition-all
-              hover:bg-primary/90 hover:shadow-sm
-              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
-              disabled:cursor-not-allowed disabled:opacity-60
-            "
-          >
-            <Plus className="h-4 w-4" />
-            Novo usuário
-          </button>
+          {/* Ações */}
+          <div className="flex items-center gap-2">
+            {/* Exportar */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild disabled>
+                <Button variant="outline" size="sm" disabled className="gap-2">
+                  <Download className="h-4 w-4" />
+                  Exportar
+                </Button>
+              </DropdownMenuTrigger>
+
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem disabled className="gap-2">
+                  <FileText className="h-4 w-4" />
+                  Exportar como PDF
+                </DropdownMenuItem>
+
+                <DropdownMenuItem disabled className="gap-2">
+                  <FileSpreadsheet className="h-4 w-4" />
+                  Exportar como CSV
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Novo usuário */}
+            <Button size="sm" disabled className="gap-2">
+              <Plus className="h-4 w-4" />
+              Novo usuário
+            </Button>
+          </div>
         </div>
 
         {/* Conteúdo */}
