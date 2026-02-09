@@ -13,64 +13,95 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
 import {
   Select,
-  SelectContent,
-  SelectItem,
   SelectTrigger,
   SelectValue,
+  SelectContent,
+  SelectItem,
 } from "@/components/ui/select";
 
 import { PasswordFields } from "@/components/others/PasswordFields";
+import { PhoneInput } from "@/components/others/PhoneInput";
+import { Responsibilities } from "./Responsibilities";
 
 interface CreateUserModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
 
+interface FormData {
+  name: string;
+  username: string;
+  email: string;
+  phone: string;
+  sectors: string[];
+  roles: string[];
+  accountType: string;
+  password: string;
+  confirmPassword: string;
+}
+
 export function CreateUserModal({ open, onOpenChange }: CreateUserModalProps) {
-  const [formData, setFormData] = useState({
+  const initialState: FormData = {
     name: "",
     username: "",
     email: "",
     phone: "",
-    department: "",
-    role: "",
+    sectors: [],
+    roles: [],
     accountType: "",
     password: "",
     confirmPassword: "",
-  });
+  };
 
-  function handleChange<K extends keyof typeof formData>(
+  const [formData, setFormData] = useState<FormData>(initialState);
+
+  const handleChange = <K extends keyof FormData>(
     field: K,
-    value: string,
-  ) {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
-  }
+    value: string | string[],
+  ) => {
+    setFormData((prev) => ({ ...prev, [field]: value as any }));
+  };
 
-  function handleSubmit(e: React.FormEvent) {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const requiredFields: (keyof FormData)[] = [
+      "name",
+      "username",
+      "accountType",
+      "password",
+    ];
 
-    // Apenas visual / funcional por enquanto
+    const missing = requiredFields.filter((field) => {
+      const val = formData[field];
+      return Array.isArray(val) ? val.length === 0 : !val;
+    });
+
+    if (missing.length > 0) {
+      alert(`Preencha os campos obrigatórios: ${missing.join(", ")}`);
+      return;
+    }
+
     console.log("Novo usuário:", formData);
-
     onOpenChange(false);
-  }
+    setFormData(initialState);
+  };
+
+  const handleCancel = () => {
+    onOpenChange(false);
+    setFormData(initialState);
+  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[640px]">
+      <DialogContent className="sm:max-w-[640px] max-h-[90vh] overflow-y-auto p-4 sm:p-6">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
+          <DialogTitle className="flex items-center gap-2 text-lg sm:text-xl">
             <UserPlus className="h-5 w-5 text-primary" />
             Novo usuário
           </DialogTitle>
-
-          <DialogDescription>
+          <DialogDescription className="text-sm sm:text-base">
             Preencha as informações abaixo para criar um novo usuário no
             sistema.
           </DialogDescription>
@@ -80,7 +111,7 @@ export function CreateUserModal({ open, onOpenChange }: CreateUserModalProps) {
           {/* Dados principais */}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="space-y-2">
-              <Label>Nome completo</Label>
+              <Label>Nome completo *</Label>
               <Input
                 placeholder="Ex: Gustavo Silva"
                 value={formData.name}
@@ -89,7 +120,7 @@ export function CreateUserModal({ open, onOpenChange }: CreateUserModalProps) {
             </div>
 
             <div className="space-y-2">
-              <Label>Usuário</Label>
+              <Label>Usuário *</Label>
               <Input
                 placeholder="Ex: g.silva"
                 value={formData.username}
@@ -109,38 +140,20 @@ export function CreateUserModal({ open, onOpenChange }: CreateUserModalProps) {
 
             <div className="space-y-2">
               <Label>Telefone</Label>
-              <Input
-                placeholder="+55 (11) 99999-0000"
+              <PhoneInput
                 value={formData.phone}
-                onChange={(e) => handleChange("phone", e.target.value)}
+                onChange={(value) => handleChange("phone", value)}
               />
             </div>
 
-            <div className="space-y-2">
-              <Label>Departamento</Label>
-              <Input
-                placeholder="Ex: Tecnologia"
-                value={formData.department}
-                onChange={(e) => handleChange("department", e.target.value)}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label>Cargo</Label>
-              <Input
-                placeholder="Ex: Frontend Developer"
-                value={formData.role}
-                onChange={(e) => handleChange("role", e.target.value)}
-              />
-            </div>
-
+            {/* Tipo de conta */}
             <div className="space-y-2 sm:col-span-2">
-              <Label>Tipo de conta</Label>
+              <Label>Tipo de conta *</Label>
               <Select
                 value={formData.accountType}
                 onValueChange={(value) => handleChange("accountType", value)}
               >
-                <SelectTrigger>
+                <SelectTrigger className="w-full">
                   <SelectValue placeholder="Selecione o tipo de conta" />
                 </SelectTrigger>
                 <SelectContent>
@@ -151,12 +164,18 @@ export function CreateUserModal({ open, onOpenChange }: CreateUserModalProps) {
             </div>
           </div>
 
+          {/* Responsabilidades */}
+          <Responsibilities
+            sectors={formData.sectors}
+            roles={formData.roles}
+            onChange={(field, value) => handleChange(field, value)}
+          />
+
           {/* Senha */}
           <div className="rounded-lg border border-border p-4">
             <p className="mb-3 text-sm font-medium text-foreground">
-              Segurança
+              Segurança *
             </p>
-
             <PasswordFields
               password={formData.password}
               confirmPassword={formData.confirmPassword}
@@ -165,15 +184,10 @@ export function CreateUserModal({ open, onOpenChange }: CreateUserModalProps) {
           </div>
 
           {/* Ações */}
-          <DialogFooter className="gap-2">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => onOpenChange(false)}
-            >
+          <DialogFooter className="flex flex-col sm:flex-row gap-2 sm:justify-end">
+            <Button type="button" variant="outline" onClick={handleCancel}>
               Cancelar
             </Button>
-
             <Button type="submit">Criar usuário</Button>
           </DialogFooter>
         </form>
