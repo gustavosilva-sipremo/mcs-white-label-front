@@ -1,5 +1,8 @@
+import { useState } from "react";
 import { User, Plus, Download, FileText, FileSpreadsheet } from "lucide-react";
+
 import { UsersTable } from "@/components/others/users-table";
+import { CreateUserModal } from "@/components/others/create-user-modal";
 import { mockUsers } from "@/mocks/mock-users";
 
 import { Button } from "@/components/ui/button";
@@ -12,6 +15,7 @@ import {
 
 export function UsersRenderer() {
   const hasUsers = mockUsers.length > 0;
+  const [openCreateUser, setOpenCreateUser] = useState(false);
 
   return (
     <section className="flex flex-1 flex-col gap-8 p-6">
@@ -58,7 +62,11 @@ export function UsersRenderer() {
             </DropdownMenu>
 
             {/* Novo usuário */}
-            <Button size="sm" disabled className="gap-2">
+            <Button
+              size="sm"
+              className="gap-2"
+              onClick={() => setOpenCreateUser(true)}
+            >
               <Plus className="h-4 w-4" />
               Novo usuário
             </Button>
@@ -87,6 +95,9 @@ export function UsersRenderer() {
           </div>
         )}
       </div>
+
+      {/* Modal */}
+      <CreateUserModal open={openCreateUser} onOpenChange={setOpenCreateUser} />
     </section>
   );
 }
