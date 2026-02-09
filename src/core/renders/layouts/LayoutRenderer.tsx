@@ -1,11 +1,8 @@
-import { ReactNode, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
+import { Outlet } from "react-router-dom";
 import { Header } from "@/components/sections/Header";
 import { Sidebar } from "@/components/sections/Sidebar";
 import { useContract } from "@/core/contracts/contract-provider";
-
-interface LayoutRendererProps {
-  children: ReactNode;
-}
 
 interface SidebarCategory {
   title: string;
@@ -29,7 +26,7 @@ const sidebarCategories: SidebarCategory[] = [
   },
 ];
 
-export function LayoutRenderer({ children }: LayoutRendererProps) {
+export function LayoutRenderer() {
   const { app } = useContract();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -38,7 +35,7 @@ export function LayoutRenderer({ children }: LayoutRendererProps) {
 
   return (
     <div className="relative min-h-screen bg-background text-foreground">
-      {/* Sidebar (overlay, não ocupa layout) */}
+      {/* Sidebar (overlay) */}
       <Sidebar isOpen={sidebarOpen} onClose={closeSidebar}>
         <nav className="flex flex-col gap-4 p-3">
           {sidebarCategories.map((category) => (
@@ -72,7 +69,8 @@ export function LayoutRenderer({ children }: LayoutRendererProps) {
           tabIndex={-1}
           className="flex flex-1 flex-col outline-none"
         >
-          {children}
+          {/* Aqui as rotas filhas renderizam */}
+          <Outlet />
         </main>
 
         <footer className="border-t border-border bg-background px-6 py-4 text-sm text-muted-foreground">

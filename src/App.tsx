@@ -3,16 +3,21 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LayoutRenderer } from "@/core/renders/layouts/LayoutRenderer";
 import { HomeRenderer } from "@/core/renders/HomeRenderer";
 import { UsersRenderer } from "@/core/renders/UsersRenderer";
+import { TermsRenderer } from "@/core/renders/TermsRenderer";
 
 export default function App() {
   return (
     <BrowserRouter>
-      <LayoutRenderer>
-        <Routes>
+      <Routes>
+        {/* Rotas que usam layout */}
+        <Route element={<LayoutRenderer />}>
           <Route path="/" element={<HomeRenderer />} />
           <Route path="/users" element={<UsersRenderer />} />
-        </Routes>
-      </LayoutRenderer>
+        </Route>
+
+        {/* Rotas fora do layout */}
+        <Route path="/terms" element={<TermsRenderer />} />
+      </Routes>
     </BrowserRouter>
   );
 }

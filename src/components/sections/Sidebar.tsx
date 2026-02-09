@@ -33,7 +33,7 @@ export function Sidebar({ isOpen, onClose, children }: SidebarProps) {
       {/* Overlay */}
       <div
         className={cn(
-          "fixed inset-0 z-40 bg-black/40 backdrop-blur-sm",
+          "fixed inset-0 z-40 bg-black/40",
           "transition-opacity duration-300",
           isOpen ? "opacity-100" : "pointer-events-none opacity-0",
         )}

@@ -12,31 +12,48 @@
     └── 📁src
         └── 📁components
             └── 📁others
+                ├── create-user-modal.tsx
+                ├── PasswordFields.tsx
+                ├── PhoneInput.tsx
+                ├── Responsibilities.tsx
+                ├── users-columns.tsx
+                ├── users-table.tsx
             └── 📁sections
+                ├── Header.tsx
+                ├── Sidebar.tsx
             └── 📁ui
+                ├── badge.tsx
                 ├── button.tsx
                 ├── card.tsx
                 ├── checkbox.tsx
+                ├── dialog.tsx
                 ├── dropdown-menu.tsx
                 ├── form.tsx
                 ├── input.tsx
                 ├── label.tsx
                 ├── scroll-area.tsx
+                ├── select.tsx
                 ├── separator.tsx
                 ├── skeleton.tsx
                 ├── sonner.tsx
+                ├── table.tsx
         └── 📁core
             └── 📁contracts
                 ├── contract-provider.tsx
                 ├── contract-suape.json
                 ├── contract.json
             └── 📁renders
+                └── 📁layouts
+                    ├── LayoutRenderer.tsx
                 ├── HomeRenderer.tsx
+                ├── UsersRenderer.tsx
             └── 📁theme
                 ├── theme-provider.tsx
                 ├── theme-toggle.tsx
         └── 📁lib
             ├── utils.ts
+        └── 📁mocks
+            ├── mock-users.ts
         ├── App.tsx
         ├── index.css
         ├── main.tsx
@@ -44,6 +61,7 @@
     ├── .gitignore
     ├── components.json
     ├── eslint.config.ts
+    ├── folders_structure.md
     ├── index.html
     ├── package-lock.json
     ├── package.json
