@@ -1,0 +1,43 @@
+{
+  "app": {
+    "name": "MCS White Default",
+    "language": "pt-BR"
+  },
+  "branding": {
+    "logo": {
+      "default": "/images/sipremo_logo_white.svg"
+    }
+  },
+  "theme": {
+    "defaultTheme": "light",
+    "allowToggle": true,
+
+    "themes": [
+      {
+        "id": "light",
+        "label": "Light",
+        "supports": ["light"]
+      },
+      {
+        "id": "dark",
+        "label": "Dark",
+        "supports": ["dark"]
+      },
+      {
+        "id": "mcs-suape",
+        "label": "Porto Suape",
+        "supports": ["light", "dark"]
+      },
+      {
+        "id": "mcs-sudeste",
+        "label": "Porto Sudeste",
+        "supports": ["light"]
+      }
+    ]
+  },
+  "renders": {
+    "home": { "enabled": true },
+    "login": { "enabled": true },
+    "terms": { "enabled": true }
+  }
+}

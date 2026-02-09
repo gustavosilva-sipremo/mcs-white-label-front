@@ -1,0 +1,39 @@
+{
+  "app": {
+    "name": "MCS White Suape",
+    "language": "pt-BR"
+  },
+  "branding": {
+    "logo": {
+      "default": "/images/logo_suape.png"
+    }
+  },
+  "theme": {
+    "defaultTheme": "mcs-suape",
+    "allowToggle": true,
+
+    "themes": [
+      {
+        "id": "light",
+        "label": "Light",
+        "supports": ["light"]
+      },
+      {
+        "id": "mcs-suape",
+        "label": "Porto Suape",
+        "supports": ["light", "dark"]
+      }
+    ]
+  },
+  "renders": {
+    "home": {
+      "enabled": true
+    },
+    "login": {
+      "enabled": true
+    },
+    "terms": {
+      "enabled": true
+    }
+  }
+}

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <!-- Charset -->
+    <meta charset="UTF-8" />
+
+    <!-- Viewport & Mobile -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+
+    <!-- Primary SEO -->
+    <title>MCS White Label</title>
+    <meta
+      name="description"
+      content="MCS White Label é uma plataforma modular e escalável para gestão de cenários críticos, desenvolvida pela Sipremo."
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Sipremo" />
+
+    <!-- Application identity (runtime overwrite allowed) -->
+    <meta name="application-name" content="MCS White Label" />
+
+    <!-- Theme / UI -->
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="color-scheme" content="light dark" />
+
+    <!-- Company / Product metadata -->
+    <meta name="generator" content="Vite + React + Tailwind + shadcn/ui" />
+    <meta name="publisher" content="Sipremo" />
+    <meta name="copyright" content="Sipremo" />
+
+    <!-- Open Graph (genérico / neutro) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="MCS White Label" />
+    <meta
+      property="og:description"
+      content="Plataforma white label para gestão de cenários críticos, desenvolvida pela Sipremo."
+    />
+    <meta property="og:locale" content="pt_BR" />
+
+    <!-- Twitter Card (básico) -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="MCS White Label" />
+    <meta
+      name="twitter:description"
+      content="Plataforma white label para gestão de cenários críticos."
+    />
+
+    <!-- Favicon (neutro, pode ser substituído via branding futuramente) -->
+    <link rel="icon" type="image/svg+xml" href="/favicons/vite.svg" />
+
+    <!-- Prevent FOUC: initial theme -->
+    <script>
+      (function () {
+        try {
+          const theme = localStorage.getItem("theme");
+          if (theme === "dark") {
+            document.documentElement.classList.add("dark");
+          }
+        } catch (_) {}
+      })();
+    </script>
+  </head>
+
+  <body class="bg-background text-foreground antialiased">
+    <div id="root"></div>
+
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
