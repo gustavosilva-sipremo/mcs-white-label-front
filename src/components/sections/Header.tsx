@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { useContract } from "../../core/contracts/contract-provider";
 import { ThemeToggle } from "../../core/theme/theme-toggle";
 
-export function Header() {
+interface HeaderProps {
+  onMenuClick?: () => void;
+}
+
+export function Header({ onMenuClick }: HeaderProps) {
   const contract = useContract();
   const [brandingId, setBrandingId] = useState<string>("default");
 
-  /**
-   * Detecta branding ativo a partir da classe do <html>
-   */
   useEffect(() => {
     const root = document.documentElement;
 
@@ -16,22 +17,33 @@ export function Header() {
       cls.startsWith("theme-"),
     );
 
-    if (brandingClass) {
-      setBrandingId(brandingClass.replace("theme-", ""));
-    } else {
-      setBrandingId("default");
-    }
+    setBrandingId(
+      brandingClass ? brandingClass.replace("theme-", "") : "default",
+    );
   }, []);
 
-  /**
-   * Resolve logo por branding (com fallback)
-   */
   const logoSrc =
     contract.branding.logo[brandingId as keyof typeof contract.branding.logo] ??
     contract.branding.logo.default;
 
   return (
-    <header className="flex items-center justify-between w-full px-6 py-4 border-b bg-background border-border">
+    <header className="flex items-center w-full gap-4 px-6 py-4 border-b bg-background border-border">
+      {/* Menu hamburger */}
+      <button
+        type="button"
+        aria-label="Abrir menu"
+        onClick={onMenuClick}
+        className="flex items-center justify-center w-10 h-10 rounded-md hover:bg-muted transition-colors"
+      >
+        {/* Ícone hamburger simples (sem lib) */}
+        <span className="sr-only">Abrir menu</span>
+        <div className="space-y-1">
+          <span className="block h-0.5 w-5 bg-primary" />
+          <span className="block h-0.5 w-5 bg-primary" />
+          <span className="block h-0.5 w-5 bg-primary" />
+        </div>
+      </button>
+
       {/* Logo */}
       <img
         src={logoSrc}
@@ -40,7 +52,8 @@ export function Header() {
         draggable={false}
       />
 
-      {/* Theme toggle */}
+      <div className="flex-1" />
+
       {contract.theme.allowToggle && <ThemeToggle />}
     </header>
   );

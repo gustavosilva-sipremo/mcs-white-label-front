@@ -194,6 +194,7 @@ export function ThemeToggle() {
         {themes.flatMap((theme) =>
           theme.id === "light" || theme.id === "dark" ? (
             <DropdownMenuItem
+              className="cursor-pointer"
               key={theme.id}
               onClick={() => applyTheme(theme.id)}
             >
@@ -202,6 +203,7 @@ export function ThemeToggle() {
           ) : (
             theme.supports.map((mode) => (
               <DropdownMenuItem
+                className="cursor-pointer"
                 key={`${theme.id}-${mode}`}
                 onClick={() => applyTheme(theme.id, mode as Mode)}
               >
