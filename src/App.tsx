@@ -1,12 +1,18 @@
-import { HomeRenderer } from "./core/renders/HomeRenderer";
-import { LayoutRenderer } from "./core/renders/layouts/LayoutRenderer";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-function App() {
+import { LayoutRenderer } from "@/core/renders/layouts/LayoutRenderer";
+import { HomeRenderer } from "@/core/renders/HomeRenderer";
+import { UsersRenderer } from "@/core/renders/UsersRenderer";
+
+export default function App() {
   return (
-    <LayoutRenderer>
-      <HomeRenderer />
-    </LayoutRenderer>
+    <BrowserRouter>
+      <LayoutRenderer>
+        <Routes>
+          <Route path="/" element={<HomeRenderer />} />
+          <Route path="/users" element={<UsersRenderer />} />
+        </Routes>
+      </LayoutRenderer>
+    </BrowserRouter>
   );
 }
-
-export default App;

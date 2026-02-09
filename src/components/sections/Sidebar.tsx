@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 interface SidebarProps {
@@ -8,12 +8,33 @@ interface SidebarProps {
 }
 
 export function Sidebar({ isOpen, onClose, children }: SidebarProps) {
+  /**
+   * ESC fecha a sidebar
+   * + trava scroll do body
+   */
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose?.();
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [isOpen, onClose]);
+
   return (
     <>
-      {/* Overlay (mobile / drawer) */}
+      {/* Overlay */}
       <div
         className={cn(
-          "fixed inset-0 z-40 bg-black/50 backdrop-blur-sm transition-opacity duration-300 lg:hidden",
+          "fixed inset-0 z-40 bg-black/40 backdrop-blur-sm",
+          "transition-opacity duration-300",
           isOpen ? "opacity-100" : "pointer-events-none opacity-0",
         )}
         onClick={onClose}
@@ -22,31 +43,32 @@ export function Sidebar({ isOpen, onClose, children }: SidebarProps) {
 
       {/* Sidebar */}
       <aside
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu lateral"
+        data-state={isOpen ? "open" : "closed"}
         className={cn(
-          "fixed left-0 top-0 z-50 flex h-full w-72 flex-col border-r border-border bg-background shadow-xl",
+          "fixed left-0 top-0 z-50 flex h-full w-72 flex-col",
+          "bg-background border-r border-border shadow-2xl",
           "transform transition-transform duration-300 ease-out",
-          "lg:static lg:translate-x-0 lg:shadow-none",
           isOpen ? "translate-x-0" : "-translate-x-full",
         )}
-        aria-hidden={!isOpen}
       >
-        {/* Header interno do sidebar */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-border">
-          <span className="text-sm font-semibold tracking-wide text-foreground">
-            Menu
-          </span>
+        {/* Header interno */}
+        <div className="flex items-center justify-between border-b border-border px-5 py-4">
+          <span className="text-sm font-semibold tracking-wide">Menu</span>
 
-          {/* Botão fechar (mobile) */}
           <button
+            type="button"
             onClick={onClose}
-            className="flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground lg:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             aria-label="Fechar menu"
           >
             ✕
           </button>
         </div>
 
-        {/* Conteúdo do sidebar */}
+        {/* Conteúdo */}
         <nav className="flex flex-1 flex-col gap-1 overflow-y-auto px-3 py-4">
           {children ?? (
             <span className="px-2 text-sm text-muted-foreground">
