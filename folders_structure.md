@@ -20,6 +20,10 @@
                 ├── users-columns.tsx
                 ├── users-table.tsx
             └── 📁sections
+                └── 📁external-users
+                    ├── create-user-modal.tsx
+                    ├── users-columns.tsx
+                    ├── users-table.tsx
                 ├── Header.tsx
                 ├── Sidebar.tsx
                 ├── Terms.tsx
@@ -47,8 +51,14 @@
             └── 📁renders
                 └── 📁layouts
                     ├── LayoutRenderer.tsx
+                └── 📁password
+                    ├── PassEmailCodeRenderer.tsx
+                    ├── PassEmailSendRenderer.tsx
+                    ├── PassResetRenderer.tsx
                 ├── HomeRenderer.tsx
+                ├── LoginRenderer.tsx
                 ├── TermsRenderer.tsx
+                ├── UsersExternRenderer.tsx
                 ├── UsersRenderer.tsx
             └── 📁theme
                 ├── theme-provider.tsx
@@ -56,8 +66,11 @@
         └── 📁lib
             ├── utils.ts
         └── 📁mocks
+            ├── mock-external-users.ts
             ├── mock-terms.ts
             ├── mock-users.ts
+        └── 📁types
+            ├── images.d.ts
         ├── App.tsx
         ├── index.css
         ├── main.tsx

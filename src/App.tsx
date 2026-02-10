@@ -7,6 +7,10 @@ import { TermsRenderer } from "@/core/renders/TermsRenderer";
 import { LoginRenderer } from "@/core/renders/LoginRenderer";
 import { ExternalUsersRenderer } from "@/core/renders/UsersExternRenderer";
 
+import { PassEmailSendRenderer } from "@/core/renders/password/PassEmailSendRenderer";
+import { PassEmailCodeRenderer } from "@/core/renders/password/PassEmailCodeRenderer";
+import { PassResetRenderer } from "@/core/renders/password/PassResetRenderer";
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -21,6 +25,11 @@ export default function App() {
         {/* Rotas fora do layout */}
         <Route path="/terms" element={<TermsRenderer />} />
         <Route path="/login" element={<LoginRenderer />} />
+
+        {/* Rotas de reset de senha */}
+        <Route path="/password/send" element={<PassEmailSendRenderer />} />
+        <Route path="/password/code" element={<PassEmailCodeRenderer />} />
+        <Route path="/password/reset" element={<PassResetRenderer />} />
       </Routes>
     </BrowserRouter>
   );
