@@ -28,13 +28,13 @@ export function Sidebar({ isOpen, onClose, children }: SidebarProps) {
     };
   }, [isOpen, onClose]);
 
+  // Adiciona animação e overlay
   return (
     <>
       {/* Overlay */}
       <div
         className={cn(
-          "fixed inset-0 z-40 bg-black/40",
-          "transition-opacity duration-300",
+          "fixed inset-0 z-40 bg-black/40 transition-opacity duration-300",
           isOpen ? "opacity-100" : "pointer-events-none opacity-0",
         )}
         onClick={onClose}
@@ -48,16 +48,13 @@ export function Sidebar({ isOpen, onClose, children }: SidebarProps) {
         aria-label="Menu lateral"
         data-state={isOpen ? "open" : "closed"}
         className={cn(
-          "fixed left-0 top-0 z-50 flex h-full w-72 flex-col",
-          "bg-background border-r border-border shadow-2xl",
-          "transform transition-transform duration-300 ease-out",
+          "fixed left-0 top-0 z-50 flex h-full w-72 flex-col bg-background border-r border-border shadow-2xl transform transition-transform duration-300 ease-out",
           isOpen ? "translate-x-0" : "-translate-x-full",
         )}
       >
         {/* Header interno */}
         <div className="flex items-center justify-between border-b border-border px-5 py-4">
           <span className="text-sm font-semibold tracking-wide">Menu</span>
-
           <button
             type="button"
             onClick={onClose}
@@ -68,9 +65,11 @@ export function Sidebar({ isOpen, onClose, children }: SidebarProps) {
           </button>
         </div>
 
-        {/* Conteúdo */}
-        <nav className="flex flex-1 flex-col gap-1 overflow-y-auto px-3 py-4">
-          {children ?? (
+        {/* Conteúdo da Sidebar */}
+        <nav className="flex flex-1 flex-col gap-4 p-3 overflow-y-auto">
+          {children ? (
+            children
+          ) : (
             <span className="px-2 text-sm text-muted-foreground">
               Sidebar vazia
             </span>

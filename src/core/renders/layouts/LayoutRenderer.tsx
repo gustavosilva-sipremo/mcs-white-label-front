@@ -1,39 +1,89 @@
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState, useEffect, JSX } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Header } from "@/components/sections/Header";
 import { Sidebar } from "@/components/sections/Sidebar";
 import { useContract } from "@/core/contracts/contract-provider";
 
-interface SidebarCategory {
-  title: string;
-  links: { label: string; href: string }[];
+import {
+  Home,
+  FileText,
+  Users,
+  UserCheck,
+  UserPlus,
+  File,
+  Beaker,
+  LogIn,
+  LogOut,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+
+// --- Tipos ---
+interface SidebarLink {
+  label: string;
+  href: string;
+  icon: JSX.Element;
 }
 
+interface SidebarCategory {
+  title: string;
+  links: SidebarLink[];
+}
+
+// --- Categorias ---
 const sidebarCategories: SidebarCategory[] = [
   {
     title: "Geral",
     links: [
-      { label: "Home", href: "/" },
-      { label: "Relatórios", href: "/reports" },
+      { label: "Home", href: "/", icon: <Home className="w-5 h-5" /> },
+      {
+        label: "Relatórios",
+        href: "/reports",
+        icon: <FileText className="w-5 h-5" />,
+      },
     ],
   },
   {
     title: "Gestão",
     links: [
-      { label: "Usuários", href: "/users" },
-      { label: "Usuários Externos", href: "/external-users" },
+      {
+        label: "Usuários",
+        href: "/users",
+        icon: <Users className="w-5 h-5" />,
+      },
+      {
+        label: "Usuários Externos",
+        href: "/external-users",
+        icon: <UserPlus className="w-5 h-5" />,
+      },
+      {
+        label: "Equipes",
+        href: "/teams",
+        icon: <UserCheck className="w-5 h-5" />,
+      },
+    ],
+  },
+  {
+    title: "Configurações",
+    links: [
+      {
+        label: "Formulários",
+        href: "/forms",
+        icon: <File className="w-5 h-5" />,
+      },
+      { label: "Testes", href: "/tests", icon: <Beaker className="w-5 h-5" /> },
     ],
   },
   {
     title: "Acesso",
     links: [
-      { label: "Login", href: "/login" },
-      { label: "Sair", href: "/logout" },
+      { label: "Login", href: "/login", icon: <LogIn className="w-5 h-5" /> },
+      { label: "Sair", href: "/logout", icon: <LogOut className="w-5 h-5" /> },
     ],
   },
 ];
 
+// --- Loader da página ---
 function PageLoader({ loading }: { loading: boolean }) {
   return (
     <AnimatePresence>
@@ -50,6 +100,7 @@ function PageLoader({ loading }: { loading: boolean }) {
   );
 }
 
+// --- Layout Principal ---
 export function LayoutRenderer() {
   const { app } = useContract();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -59,10 +110,9 @@ export function LayoutRenderer() {
   const openSidebar = useCallback(() => setSidebarOpen(true), []);
   const closeSidebar = useCallback(() => setSidebarOpen(false), []);
 
-  // Detecta mudança de rota para ativar carregamento
   useEffect(() => {
     setLoading(true);
-    const timer = setTimeout(() => setLoading(false), 300); // simula carregamento mínimo
+    const timer = setTimeout(() => setLoading(false), 300);
     return () => clearTimeout(timer);
   }, [location.pathname]);
 
@@ -70,30 +120,39 @@ export function LayoutRenderer() {
     <div className="relative min-h-screen bg-background text-foreground">
       <PageLoader loading={loading} />
 
+      {/* --- Sidebar --- */}
       <Sidebar isOpen={sidebarOpen} onClose={closeSidebar}>
-        <nav className="flex flex-col gap-4 p-3">
-          {sidebarCategories.map((category) => (
-            <div key={category.title}>
-              <p className="mb-2 px-3 text-xs font-semibold uppercase text-muted-foreground">
-                {category.title}
-              </p>
-              <hr />
-              <div className="flex flex-col gap-1 mt-2">
-                {category.links.map((link) => (
+        {sidebarCategories.map((category) => (
+          <div key={category.title}>
+            <p className="mb-2 px-3 text-xs font-semibold uppercase text-muted-foreground">
+              {category.title}
+            </p>
+            <hr className="border-border mb-2" />
+            <div className="flex flex-col gap-1">
+              {category.links.map((link) => {
+                const isActive = location.pathname === link.href;
+                return (
                   <a
                     key={link.href}
                     href={link.href}
-                    className="rounded-md px-3 py-2 text-sm transition-colors hover:bg-muted"
+                    className={cn(
+                      "flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-all",
+                      isActive
+                        ? "bg-primary text-primary-foreground font-semibold scale-105"
+                        : "hover:bg-muted hover:scale-105",
+                    )}
                   >
-                    {link.label}
+                    {link.icon}
+                    <span>{link.label}</span>
                   </a>
-                ))}
-              </div>
+                );
+              })}
             </div>
-          ))}
-        </nav>
+          </div>
+        ))}
       </Sidebar>
 
+      {/* --- Conteúdo Principal --- */}
       <div className="flex min-h-screen flex-col">
         <Header onMenuClick={openSidebar} />
 

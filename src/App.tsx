@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { LayoutRenderer } from "@/core/renders/layouts/LayoutRenderer";
+import { NotFoundRenderer } from "@/core/renders/NotFoundRenderer";
 import { HomeRenderer } from "@/core/renders/HomeRenderer";
 import { UsersRenderer } from "@/core/renders/UsersRenderer";
 import { TermsRenderer } from "@/core/renders/TermsRenderer";
@@ -32,6 +33,9 @@ export default function App() {
         <Route path="/password/send" element={<PassEmailSendRenderer />} />
         <Route path="/password/code" element={<PassEmailCodeRenderer />} />
         <Route path="/password/reset" element={<PassResetRenderer />} />
+
+        {/* Rota 404 */}
+        <Route path="*" element={<NotFoundRenderer />} />
       </Routes>
     </BrowserRouter>
   );
