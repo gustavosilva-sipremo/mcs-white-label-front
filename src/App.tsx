@@ -6,6 +6,7 @@ import { UsersRenderer } from "@/core/renders/UsersRenderer";
 import { TermsRenderer } from "@/core/renders/TermsRenderer";
 import { LoginRenderer } from "@/core/renders/LoginRenderer";
 import { ExternalUsersRenderer } from "@/core/renders/UsersExternRenderer";
+import ReportRenderer from "./core/renders/ReportRenderer";
 
 import { PassEmailSendRenderer } from "@/core/renders/password/PassEmailSendRenderer";
 import { PassEmailCodeRenderer } from "@/core/renders/password/PassEmailCodeRenderer";
@@ -20,6 +21,7 @@ export default function App() {
           <Route path="/" element={<HomeRenderer />} />
           <Route path="/users" element={<UsersRenderer />} />
           <Route path="/external-users" element={<ExternalUsersRenderer />} />
+          <Route path="/reports" element={<ReportRenderer />} />
         </Route>
 
         {/* Rotas fora do layout */}

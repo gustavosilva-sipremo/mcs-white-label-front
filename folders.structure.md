@@ -24,6 +24,7 @@
                     ├── create-user-modal.tsx
                     ├── users-columns.tsx
                     ├── users-table.tsx
+                └── 📁reports
                 ├── Header.tsx
                 ├── Sidebar.tsx
                 ├── Terms.tsx
@@ -51,12 +52,14 @@
             └── 📁renders
                 └── 📁layouts
                     ├── LayoutRenderer.tsx
+                    ├── PasswordFlowLayout.tsx
                 └── 📁password
                     ├── PassEmailCodeRenderer.tsx
                     ├── PassEmailSendRenderer.tsx
                     ├── PassResetRenderer.tsx
                 ├── HomeRenderer.tsx
                 ├── LoginRenderer.tsx
+                ├── ReportRenderer.tsx
                 ├── TermsRenderer.tsx
                 ├── UsersExternRenderer.tsx
                 ├── UsersRenderer.tsx
@@ -78,7 +81,7 @@
     ├── .gitignore
     ├── components.json
     ├── eslint.config.ts
-    ├── folders_structure.md
+    ├── folders.structure.md
     ├── index.html
     ├── package-lock.json
     ├── package.json
