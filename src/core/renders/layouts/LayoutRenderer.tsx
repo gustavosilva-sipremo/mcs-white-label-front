@@ -22,7 +22,14 @@ const sidebarCategories: SidebarCategory[] = [
     title: "Gestão",
     links: [
       { label: "Usuários", href: "/users" },
-      { label: "Notificados", href: "/notify" },
+      { label: "Usuários Externos", href: "/external-users" },
+    ],
+  },
+  {
+    title: "Acesso",
+    links: [
+      { label: "Login", href: "/login" },
+      { label: "Sair", href: "/logout" },
     ],
   },
 ];

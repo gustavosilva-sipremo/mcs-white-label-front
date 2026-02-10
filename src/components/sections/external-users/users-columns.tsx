@@ -2,7 +2,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Pencil, Trash2 } from "lucide-react";
-import { UserModel } from "@/mocks/mock-users";
+import { UserModel } from "@/mocks/mock-external-users";
 
 export const usersColumns: ColumnDef<UserModel>[] = [
   {
@@ -19,7 +19,7 @@ export const usersColumns: ColumnDef<UserModel>[] = [
             variant="ghost"
             size="icon"
             className="h-8 w-8"
-            aria-label={`Editar ${user.username}`}
+            aria-label={`Editar ${user.name}`}
           >
             <Pencil className="h-4 w-4" />
           </Button>
@@ -28,7 +28,7 @@ export const usersColumns: ColumnDef<UserModel>[] = [
             variant="ghost"
             size="icon"
             className="h-8 w-8 text-destructive hover:bg-destructive/10"
-            aria-label={`Excluir ${user.username}`}
+            aria-label={`Excluir ${user.name}`}
           >
             <Trash2 className="h-4 w-4" />
           </Button>
@@ -37,14 +37,6 @@ export const usersColumns: ColumnDef<UserModel>[] = [
     },
     enableSorting: false,
     enableColumnFilter: false,
-  },
-
-  {
-    accessorKey: "username",
-    header: "Usuário",
-    cell: ({ row }) => (
-      <span className="font-medium">{row.getValue("username")}</span>
-    ),
   },
 
   {
@@ -79,13 +71,23 @@ export const usersColumns: ColumnDef<UserModel>[] = [
     accessorKey: "accountType",
     header: "Tipo",
     cell: ({ row }) => {
-      const value = row.getValue<"admin" | "user">("accountType");
+      const value = row.original.accountType;
 
-      return (
-        <Badge variant={value === "admin" ? "default" : "secondary"}>
-          {value === "admin" ? "Administrador" : "Comum"}
-        </Badge>
-      );
+      const typeMap: Record<
+        UserModel["accountType"],
+        { label: string; variant: "default" | "secondary" | "destructive" }
+      > = {
+        official: { label: "Oficial", variant: "default" },
+        user: { label: "Usuário", variant: "secondary" },
+        area: { label: "Área", variant: "destructive" },
+      };
+
+      const typeInfo = typeMap[value] ?? {
+        label: "Desconhecido",
+        variant: "secondary",
+      };
+
+      return <Badge variant={typeInfo.variant}>{typeInfo.label}</Badge>;
     },
   },
 

@@ -4,7 +4,8 @@ import { LayoutRenderer } from "@/core/renders/layouts/LayoutRenderer";
 import { HomeRenderer } from "@/core/renders/HomeRenderer";
 import { UsersRenderer } from "@/core/renders/UsersRenderer";
 import { TermsRenderer } from "@/core/renders/TermsRenderer";
-import { LoginRenderer } from "./core/renders/LoginRenderer";
+import { LoginRenderer } from "@/core/renders/LoginRenderer";
+import { ExternalUsersRenderer } from "@/core/renders/UsersExternRenderer";
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
         <Route element={<LayoutRenderer />}>
           <Route path="/" element={<HomeRenderer />} />
           <Route path="/users" element={<UsersRenderer />} />
+          <Route path="/external-users" element={<ExternalUsersRenderer />} />
         </Route>
 
         {/* Rotas fora do layout */}
