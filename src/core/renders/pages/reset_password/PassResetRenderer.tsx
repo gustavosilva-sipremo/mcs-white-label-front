@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { PasswordFields } from "@/components/others/PasswordFields";
+import { PasswordFields } from "@/components/sections/forms/users/PasswordFields";
 import { Button } from "@/components/ui/button";
 
 export function PassResetRenderer() {

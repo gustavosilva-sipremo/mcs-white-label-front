@@ -21,8 +21,8 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 
-import { PasswordFields } from "@/components/others/PasswordFields";
-import { PhoneInput } from "@/components/others/PhoneInput";
+import { PasswordFields } from "@/components/sections/forms/users/PasswordFields";
+import { PhoneInput } from "@/components/sections/forms/users/PhoneInput";
 import { Responsibilities } from "./Responsibilities";
 
 interface CreateUserModalProps {
@@ -157,8 +157,12 @@ export function CreateUserModal({ open, onOpenChange }: CreateUserModalProps) {
                   <SelectValue placeholder="Selecione o tipo de conta" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="admin">Administrador</SelectItem>
-                  <SelectItem value="common">Usuário comum</SelectItem>
+                  <SelectItem className="cursor-pointer" value="admin">
+                    Administrador
+                  </SelectItem>
+                  <SelectItem className="cursor-pointer" value="common">
+                    Usuário comum
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>

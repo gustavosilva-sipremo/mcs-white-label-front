@@ -21,8 +21,8 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 
-import { PhoneInput } from "@/components/others/PhoneInput";
-import { Responsibilities } from "@/components/others/Responsibilities";
+import { PhoneInput } from "@/components/sections/forms/users/PhoneInput";
+import { Responsibilities } from "@/components/sections/forms/users/Responsibilities";
 
 interface CreateUserModalProps {
   open: boolean;
@@ -139,9 +139,15 @@ export function CreateExternalUserModal({
                   <SelectValue placeholder="Selecione o tipo de conta" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="official">Órgãos Oficiais</SelectItem>
-                  <SelectItem value="user">Usuário</SelectItem>
-                  <SelectItem value="area">Área</SelectItem>
+                  <SelectItem className="cursor-pointer" value="official">
+                    Órgãos Oficiais
+                  </SelectItem>
+                  <SelectItem className="cursor-pointer" value="user">
+                    Usuário
+                  </SelectItem>
+                  <SelectItem className="cursor-pointer" value="area">
+                    Área
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>

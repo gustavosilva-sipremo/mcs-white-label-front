@@ -28,7 +28,9 @@ export function Header({ onMenuClick }: HeaderProps) {
       </button>
 
       {/* Logo */}
-      <BrandingLogo className="w-32 h-auto" />
+      <a href="/">
+        <BrandingLogo className="w-32 h-auto" />
+      </a>
 
       <div className="flex-1" />
 

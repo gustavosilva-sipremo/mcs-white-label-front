@@ -2,7 +2,7 @@ import { useState } from "react";
 import { User, Plus, Download, FileText, FileSpreadsheet } from "lucide-react";
 
 import { UsersTable } from "@/components/others/users-table";
-import { CreateUserModal } from "@/components/others/create-user-modal";
+import { CreateUserModal } from "@/components/sections/forms/users/create-user-modal";
 import { mockUsers } from "@/mocks/mock-users";
 
 import { Button } from "@/components/ui/button";
