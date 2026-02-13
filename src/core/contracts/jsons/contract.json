@@ -5,13 +5,12 @@
   },
   "branding": {
     "logo": {
-      "default": "/images/sipremo_logo_white.svg"
+      "default": "/images/sipremo_logo_white.svg",
+      "invert": true
     }
   },
   "theme": {
-    "defaultTheme": "light",
     "allowToggle": true,
-
     "themes": [
       {
         "id": "light",

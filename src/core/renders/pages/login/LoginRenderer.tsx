@@ -23,13 +23,13 @@ export function LoginRenderer() {
   return (
     <>
       {/* Título */}
-      <h1 className="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-6">
+      <h1 className="text-2xl sm:text-3xl font-bold text-center text-foreground mb-6">
         Acesse sua conta
       </h1>
 
       {/* Campo Usuário */}
       <div className="flex flex-col">
-        <Label htmlFor="user" className="text-gray-700 font-medium">
+        <Label htmlFor="user" className="font-medium text-foreground">
           Usuário
         </Label>
         <Input
@@ -37,13 +37,13 @@ export function LoginRenderer() {
           placeholder="Digite seu usuário"
           value={user}
           onChange={(e) => setUser(e.target.value)}
-          className="mt-1"
+          className="mt-4"
         />
       </div>
 
       {/* Campo Senha */}
       <div className="flex flex-col mt-4 relative">
-        <Label htmlFor="password" className="text-gray-700 font-medium">
+        <Label htmlFor="password" className="font-medium text-foreground">
           Senha
         </Label>
         <Input
@@ -52,13 +52,14 @@ export function LoginRenderer() {
           placeholder="Digite sua senha"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="mt-1 pr-12"
+          className="mt-4 pr-12"
         />
+
         <button
           type="button"
           onClick={() => setShowPassword((prev) => !prev)}
-          className="absolute inset-y-9 right-3 flex items-center justify-center text-gray-400 hover:text-gray-600 transition-colors"
           aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+          className="absolute right-3 top-[26px] flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
         >
           {showPassword ? (
             <EyeOff className="w-5 h-5" />
@@ -71,7 +72,7 @@ export function LoginRenderer() {
       {/* Botão Entrar */}
       <Button
         onClick={handleLogin}
-        className="w-full mt-6 py-3 text-lg font-medium"
+        className="w-full mt-6 py-3 text-lg text-primary-foreground font-medium"
       >
         Entrar
       </Button>
@@ -79,8 +80,8 @@ export function LoginRenderer() {
       {/* Esqueci minha senha */}
       <Button
         variant="link"
-        className="w-full text-center mt-4 text-sm text-purple-600 hover:underline"
         onClick={handleForgotPassword}
+        className="w-full mt-4 text-sm text-primary hover:underline"
       >
         Esqueci minha senha
       </Button>

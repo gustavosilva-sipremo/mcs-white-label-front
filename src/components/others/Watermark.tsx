@@ -1,4 +1,5 @@
 import sipremoLogo from "/favicons/sipremo.svg";
+import clsx from "clsx";
 
 export function Watermark() {
   return (
@@ -6,7 +7,10 @@ export function Watermark() {
       <img
         src={sipremoLogo}
         alt="Sipremo Logo"
-        className="absolute -left-[50%] w-[200%] top-1/2 transform -translate-y-1/2 opacity-20"
+        className={clsx(
+          "absolute -left-[50%] w-[200%] top-1/2 transform -translate-y-1/2 opacity-20",
+          "filter dark:invert dark:opacity-30",
+        )}
       />
     </div>
   );

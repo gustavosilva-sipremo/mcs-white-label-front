@@ -12,12 +12,13 @@ import { useEffect, useRef, useState } from "react";
 
 type Mode = "light" | "dark";
 
+const BRANDING_STORAGE_KEY = "theme-branding";
+
 export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
   const { theme: themeConfig } = useContract();
 
   const themes = themeConfig.themes ?? [];
-
   const [mounted, setMounted] = useState(false);
 
   /**
@@ -26,11 +27,10 @@ export function ThemeToggle() {
    * ============================
    */
   const activeBranding = useRef<string | null>(null);
-  const hasBootstrapped = useRef(false);
 
   /**
    * ============================
-   * Mount guard
+   * Mount
    * ============================
    */
   useEffect(() => {
@@ -39,7 +39,24 @@ export function ThemeToggle() {
 
   /**
    * ============================
-   * Helpers (DOM)
+   * Bootstrap branding salvo
+   * ============================
+   */
+  useEffect(() => {
+    if (!mounted) return;
+
+    const storedBranding = localStorage.getItem(BRANDING_STORAGE_KEY);
+    const isValid = themes.some((t) => t.id === storedBranding);
+
+    if (storedBranding && isValid) {
+      activeBranding.current = storedBranding;
+      applyBranding(storedBranding);
+    }
+  }, [mounted, themes]);
+
+  /**
+   * ============================
+   * Helpers DOM
    * ============================
    */
   function clearBranding() {
@@ -52,6 +69,7 @@ export function ThemeToggle() {
 
   function applyBranding(themeId: string | null) {
     clearBranding();
+
     if (themeId) {
       document.documentElement.classList.add(`theme-${themeId}`);
     }
@@ -59,16 +77,17 @@ export function ThemeToggle() {
 
   /**
    * ============================
-   * Apply theme (único ponto de controle)
+   * Apply Theme (controle único)
    * ============================
    */
   function applyTheme(themeId: string, mode?: Mode) {
     const theme = themes.find((t) => t.id === themeId);
     if (!theme) return;
 
-    // Tema base (light / dark)
+    // Light / Dark puro
     if (themeId === "light" || themeId === "dark") {
       activeBranding.current = null;
+      localStorage.removeItem(BRANDING_STORAGE_KEY);
       applyBranding(null);
       setTheme(themeId);
       return;
@@ -76,52 +95,16 @@ export function ThemeToggle() {
 
     // Tema com branding
     activeBranding.current = theme.id;
+    localStorage.setItem(BRANDING_STORAGE_KEY, theme.id);
     applyBranding(theme.id);
 
     const preferredMode = (mode ?? theme.supports[0]) as Mode;
-    if (resolvedTheme !== preferredMode) {
-      setTheme(preferredMode);
-    }
+    setTheme(preferredMode);
   }
 
   /**
    * ============================
-   * Bootstrap inicial
-   * ============================
-   */
-  useEffect(() => {
-    if (!mounted || hasBootstrapped.current) return;
-
-    const defaultThemeId = themeConfig.defaultTheme;
-    const defaultTheme = themes.find((t) => t.id === defaultThemeId);
-
-    if (!defaultTheme) {
-      hasBootstrapped.current = true;
-      return;
-    }
-
-    // Caso 1: default é light ou dark puro
-    if (defaultTheme.id === "light" || defaultTheme.id === "dark") {
-      activeBranding.current = null;
-      applyBranding(null);
-      setTheme(defaultTheme.id as Mode);
-      hasBootstrapped.current = true;
-      return;
-    }
-
-    // Caso 2: default é um tema de empresa
-    activeBranding.current = defaultTheme.id;
-    applyBranding(defaultTheme.id);
-
-    const preferredMode = defaultTheme.supports[0] as Mode;
-    setTheme(preferredMode);
-
-    hasBootstrapped.current = true;
-  }, [mounted, themes, themeConfig.defaultTheme, setTheme]);
-
-  /**
-   * ============================
-   * Reaplica branding ao mudar light/dark
+   * Reaplica branding ao trocar mode
    * ============================
    */
   useEffect(() => {
@@ -139,10 +122,9 @@ export function ThemeToggle() {
 
   /**
    * ============================
-   * Toggle simples (somente light/dark)
+   * Toggle simples (light/dark)
    * ============================
    */
-
   const isPureLightDark =
     themes.length === 2 &&
     themes.every((t) => t.id === "light" || t.id === "dark");
@@ -162,7 +144,7 @@ export function ThemeToggle() {
         size="icon"
         onClick={() => setTheme(isDark ? "light" : "dark")}
         aria-label="Toggle theme"
-        className="text-primary hover:text-primary/80 transition-colors"
+        className="text-primary hover:text-primary/80 transition-colors border"
       >
         {isDark ? (
           <Sun className="h-10 w-10" />
@@ -184,7 +166,7 @@ export function ThemeToggle() {
         <Button
           variant="ghost"
           size="icon"
-          className="text-primary hover:text-primary/80 transition-colors"
+          className="text-primary hover:text-primary/80 transition-colors border"
         >
           <Palette className="h-10 w-10" />
         </Button>
@@ -194,8 +176,8 @@ export function ThemeToggle() {
         {themes.flatMap((theme) =>
           theme.id === "light" || theme.id === "dark" ? (
             <DropdownMenuItem
-              className="cursor-pointer"
               key={theme.id}
+              className="cursor-pointer"
               onClick={() => applyTheme(theme.id)}
             >
               {theme.label}
@@ -203,8 +185,8 @@ export function ThemeToggle() {
           ) : (
             theme.supports.map((mode) => (
               <DropdownMenuItem
-                className="cursor-pointer"
                 key={`${theme.id}-${mode}`}
+                className="cursor-pointer"
                 onClick={() => applyTheme(theme.id, mode as Mode)}
               >
                 {theme.label} · {mode}

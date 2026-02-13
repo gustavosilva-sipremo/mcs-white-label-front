@@ -14,7 +14,7 @@ export function PassEmailSendRenderer() {
   return (
     <>
       <div className="flex flex-col">
-        <Label htmlFor="email" className="text-gray-700 font-medium">
+        <Label htmlFor="email" className="text-foreground font-medium">
           E-mail
         </Label>
         <Input
@@ -23,13 +23,13 @@ export function PassEmailSendRenderer() {
           placeholder="Digite seu e-mail"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="mt-1"
+          className="mt-4"
         />
       </div>
 
       <Button
         onClick={handleSendCode}
-        className="w-full py-3 text-lg mt-6 font-medium"
+        className="w-full mt-6 py-3 text-lg text-primary-foreground font-medium"
       >
         Enviar código
       </Button>

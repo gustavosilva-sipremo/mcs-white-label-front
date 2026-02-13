@@ -55,13 +55,13 @@ export function PassEmailCodeRenderer() {
   return (
     <>
       {/* Título */}
-      <h1 className="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-6">
+      <h1 className="text-2xl sm:text-3xl font-bold text-center text-foreground mb-6">
         Digite o código enviado
       </h1>
 
       <div className="flex flex-col gap-6">
         <div className="flex flex-col items-center gap-4">
-          <Label className="text-gray-700 font-medium">Código</Label>
+          <Label className="font-medium text-foreground">Código</Label>
 
           <div className="flex gap-2">
             {code.map((digit, i) => (
@@ -77,7 +77,14 @@ export function PassEmailCodeRenderer() {
                 onChange={(e) => handleChange(i, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(i, e)}
                 onPaste={handlePaste}
-                className="w-12 h-12 text-center border rounded-lg text-xl focus:border-purple-600 focus:ring-1 focus:ring-purple-600 outline-none"
+                className="
+                  w-12 h-12 text-center text-xl rounded-lg border
+                  bg-background text-foreground
+                  border-border
+                  focus:outline-none
+                  focus:border-primary
+                  focus:ring-1 focus:ring-ring
+                "
               />
             ))}
           </div>
@@ -85,8 +92,8 @@ export function PassEmailCodeRenderer() {
 
         <Button
           onClick={handleVerifyCode}
-          className="w-full py-3 text-lg mt-6 font-medium"
           disabled={code.some((c) => c === "")}
+          className="w-full mt-6 py-3 text-lg font-medium"
         >
           Verificar código
         </Button>

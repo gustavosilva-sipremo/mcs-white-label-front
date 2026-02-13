@@ -6,87 +6,73 @@ export type ThemeProviderProps = {
   children: React.ReactNode;
 };
 
+const BRANDING_STORAGE_KEY = "theme-branding";
+const MODE_STORAGE_KEY = "theme-mode";
+
 export function ThemeProvider({ children }: ThemeProviderProps) {
   const contract = useContract();
   const themeConfig = contract.theme;
 
-  /**
-   * ============================
-   * 1️⃣ THEMES VISUAIS (CSS)
-   * ============================
-   */
-
   const themes = themeConfig.themes ?? [];
 
-  // Tema visual default = primeiro da lista
-  const defaultVisualTheme = themes[0];
-
+  /**
+   * ============================
+   * 1️⃣ Branding (CSS theme-*)
+   * ============================
+   */
   React.useEffect(() => {
-    if (!defaultVisualTheme) return;
+    if (typeof window === "undefined") return;
 
     const root = document.documentElement;
 
-    // Remove qualquer theme-*
+    // Remove branding antigo
     root.classList.forEach((cls) => {
       if (cls.startsWith("theme-")) {
         root.classList.remove(cls);
       }
     });
 
-    root.classList.add(`theme-${defaultVisualTheme.id}`);
-  }, [defaultVisualTheme?.id]);
+    const storedBranding = localStorage.getItem(BRANDING_STORAGE_KEY);
+
+    const isValidBranding = themes.some((t) => t.id === storedBranding);
+
+    if (storedBranding && isValidBranding) {
+      root.classList.add(`theme-${storedBranding}`);
+    }
+  }, [themes]);
 
   /**
    * ============================
-   * 2️⃣ MODE (light / dark / system)
+   * 2️⃣ Mode (light / dark / system)
    * ============================
    */
+  const getStoredMode = (): "light" | "dark" | "system" => {
+    if (typeof window === "undefined") return "light";
 
-  const requestedDefaultMode = themeConfig.defaultTheme; // "light" | "dark" | "system"
+    const stored = localStorage.getItem(MODE_STORAGE_KEY);
 
-  const supportedModes = new Set(
-    defaultVisualTheme?.supports ?? ["light", "dark"],
-  );
+    if (stored === "light" || stored === "dark" || stored === "system") {
+      return stored;
+    }
 
-  // Se o modo default não for suportado pelo tema visual, faz fallback
-  const resolvedDefaultMode =
-    requestedDefaultMode === "system"
-      ? supportedModes.has("light") && supportedModes.has("dark")
-        ? "system"
-        : supportedModes.has("dark")
-          ? "dark"
-          : "light"
-      : supportedModes.has(requestedDefaultMode)
-        ? requestedDefaultMode
-        : supportedModes.has("dark")
-          ? "dark"
-          : "light";
+    return "light";
+  };
 
-  const enableSystem =
-    resolvedDefaultMode === "system" && themeConfig.allowToggle;
+  const defaultMode = getStoredMode();
 
   /**
    * ============================
-   * 3️⃣ STORAGE
+   * 3️⃣ Provider
    * ============================
    */
-
-  const storageKey = themeConfig.allowToggle ? "theme-mode" : null;
-
-  /**
-   * ============================
-   * 4️⃣ PROVIDER
-   * ============================
-   */
-
   return (
     <NextThemesProvider
       attribute="class"
-      defaultTheme={resolvedDefaultMode}
-      enableSystem={enableSystem}
+      defaultTheme={defaultMode}
+      enableSystem={defaultMode === "system" && themeConfig.allowToggle}
       enableColorScheme
       disableTransitionOnChange
-      storageKey={storageKey as any}
+      storageKey={MODE_STORAGE_KEY}
     >
       {children}
     </NextThemesProvider>
