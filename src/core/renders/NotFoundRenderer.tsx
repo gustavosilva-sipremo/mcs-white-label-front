@@ -1,5 +1,5 @@
 // NotFoundRenderer.tsx
-import sipremoLogo from "/favicons/sipremo_cloud_logo_white.svg";
+import sipremoLogo from "/favicons/sipremo.svg";
 
 export function NotFoundRenderer() {
   return (

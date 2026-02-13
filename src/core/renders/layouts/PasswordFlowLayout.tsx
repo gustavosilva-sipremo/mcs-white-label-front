@@ -1,6 +1,6 @@
 // src/core/renders/layouts/PasswordFlowLayout.tsx
 import { ReactNode } from "react";
-import sipremoLogo from "/favicons/sipremo_cloud_logo_white.svg";
+import sipremoLogo from "/favicons/sipremo.svg";
 import empresaLogo from "/images/sipremo_logo_white.svg";
 
 interface PasswordFlowLayoutProps {

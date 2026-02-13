@@ -4,7 +4,10 @@ import { createRoot } from "react-dom/client";
 import App from "./App";
 import "./index.css";
 
-import { ContractProvider, useContract } from "./core/contracts/contract-provider";
+import {
+  ContractProvider,
+  useContract,
+} from "./core/contracts/contract-provider";
 import { ThemeProvider } from "./core/theme/theme-provider";
 
 /**
