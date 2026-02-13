@@ -42,7 +42,7 @@ export function LoginRenderer() {
       </div>
 
       {/* Campo Senha */}
-      <div className="flex flex-col relative">
+      <div className="flex flex-col mt-4 relative">
         <Label htmlFor="password" className="text-gray-700 font-medium">
           Senha
         </Label>
@@ -69,14 +69,17 @@ export function LoginRenderer() {
       </div>
 
       {/* Botão Entrar */}
-      <Button onClick={handleLogin} className="w-full py-3 text-lg font-medium">
+      <Button
+        onClick={handleLogin}
+        className="w-full mt-6 py-3 text-lg font-medium"
+      >
         Entrar
       </Button>
 
       {/* Esqueci minha senha */}
       <Button
         variant="link"
-        className="w-full text-center text-sm text-purple-600 hover:underline"
+        className="w-full text-center mt-4 text-sm text-purple-600 hover:underline"
         onClick={handleForgotPassword}
       >
         Esqueci minha senha

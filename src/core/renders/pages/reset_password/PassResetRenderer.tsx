@@ -32,7 +32,7 @@ export function PassResetRenderer() {
 
       <Button
         onClick={handleResetPassword}
-        className="w-full py-3 text-lg font-medium"
+        className="w-full py-3 text-lg mt-6 font-medium"
         disabled={isInvalid}
       >
         Redefinir senha

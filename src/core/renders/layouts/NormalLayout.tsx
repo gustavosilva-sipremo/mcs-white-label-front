@@ -23,7 +23,7 @@ export function NormalLayout() {
       <div className="flex flex-1 flex-col justify-center items-center px-6 sm:px-12 md:px-24 z-10">
         <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 sm:p-10">
           {/* Logo */}
-          <div className="flex justify-center mb-8">
+          <div className="flex justify-center mb-8 select-none">
             <img
               src={empresaLogo}
               alt="Empresa Logo"

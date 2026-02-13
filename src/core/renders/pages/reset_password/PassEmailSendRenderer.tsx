@@ -29,7 +29,7 @@ export function PassEmailSendRenderer() {
 
       <Button
         onClick={handleSendCode}
-        className="w-full py-3 text-lg font-medium"
+        className="w-full py-3 text-lg mt-6 font-medium"
       >
         Enviar código
       </Button>

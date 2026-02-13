@@ -85,7 +85,7 @@ export function PassEmailCodeRenderer() {
 
         <Button
           onClick={handleVerifyCode}
-          className="w-full py-3 text-lg font-medium"
+          className="w-full py-3 text-lg mt-6 font-medium"
           disabled={code.some((c) => c === "")}
         >
           Verificar código
