@@ -1,6 +1,5 @@
 import { useState, useMemo } from "react";
 import { PasswordFields } from "@/components/others/PasswordFields";
-import { PasswordFlowLayout } from "@/core/renders/layouts/PasswordFlowLayout";
 import { Button } from "@/components/ui/button";
 
 export function PassResetRenderer() {
@@ -18,7 +17,7 @@ export function PassResetRenderer() {
   }, [password, confirmPassword]);
 
   return (
-    <PasswordFlowLayout title="Redefinir senha">
+    <>
       <PasswordFields
         password={password}
         confirmPassword={confirmPassword}
@@ -38,6 +37,6 @@ export function PassResetRenderer() {
       >
         Redefinir senha
       </Button>
-    </PasswordFlowLayout>
+    </>
   );
 }

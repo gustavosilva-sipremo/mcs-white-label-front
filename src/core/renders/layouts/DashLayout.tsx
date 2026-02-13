@@ -1,9 +1,11 @@
-import { useCallback, useState, useEffect, JSX } from "react";
+import { useCallback, useState, JSX } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Header } from "@/components/sections/Header";
-import { Sidebar } from "@/components/sections/Sidebar";
-import { useContract } from "@/core/contracts/contract-provider";
+import { cn } from "@/lib/utils";
+import { Header } from "@/components/sections/header/Header";
+import { Sidebar } from "@/components/sections/sidebar/Sidebar";
+import { PageLoader } from "@/components/others/PageLoader";
+import { Footer } from "@/components/sections/footer/Footer";
 
 import {
   Home,
@@ -16,7 +18,6 @@ import {
   LogIn,
   LogOut,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 // --- Tipos ---
 interface SidebarLink {
@@ -30,7 +31,7 @@ interface SidebarCategory {
   links: SidebarLink[];
 }
 
-// --- Categorias ---
+// --- Categorias do Sidebar ---
 const sidebarCategories: SidebarCategory[] = [
   {
     title: "Geral",
@@ -83,42 +84,20 @@ const sidebarCategories: SidebarCategory[] = [
   },
 ];
 
-// --- Loader da página ---
-function PageLoader({ loading }: { loading: boolean }) {
-  return (
-    <AnimatePresence>
-      {loading && (
-        <motion.div
-          className="fixed top-0 left-0 h-1 bg-primary z-50"
-          initial={{ width: 0 }}
-          animate={{ width: "100%" }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
-        />
-      )}
-    </AnimatePresence>
-  );
-}
-
 // --- Layout Principal ---
-export function LayoutRenderer() {
-  const { app } = useContract();
+export function DashLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
   const location = useLocation();
 
   const openSidebar = useCallback(() => setSidebarOpen(true), []);
   const closeSidebar = useCallback(() => setSidebarOpen(false), []);
 
-  useEffect(() => {
-    setLoading(true);
-    const timer = setTimeout(() => setLoading(false), 300);
-    return () => clearTimeout(timer);
-  }, [location.pathname]);
+  // força o PageLoader a remontar a cada troca de rota
+  const loaderKey = location.pathname;
 
   return (
     <div className="relative min-h-screen bg-background text-foreground">
-      <PageLoader loading={loading} />
+      <PageLoader key={loaderKey} />
 
       {/* --- Sidebar --- */}
       <Sidebar isOpen={sidebarOpen} onClose={closeSidebar}>
@@ -131,6 +110,7 @@ export function LayoutRenderer() {
             <div className="flex flex-col gap-1">
               {category.links.map((link) => {
                 const isActive = location.pathname === link.href;
+
                 return (
                   <a
                     key={link.href}
@@ -175,9 +155,7 @@ export function LayoutRenderer() {
           </AnimatePresence>
         </main>
 
-        <footer className="border-t border-border bg-background px-6 py-4 text-sm text-muted-foreground">
-          © {new Date().getFullYear()} {app.name}
-        </footer>
+        <Footer />
       </div>
     </div>
   );

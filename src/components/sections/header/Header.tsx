@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useContract } from "../../core/contracts/contract-provider";
-import { ThemeToggle } from "../../core/theme/theme-toggle";
+import { useContract } from "@/core/contracts/contract-provider";
+import { ThemeToggle } from "@/core/theme/theme-toggle";
 
 interface HeaderProps {
   onMenuClick?: () => void;

@@ -24,7 +24,7 @@ ChartJS.register(
   Legend,
 );
 
-export default function ReportRenderer() {
+export function ReportRenderer() {
   const [selectedOccurrence, setSelectedOccurrence] =
     useState<OccurrenceMock | null>(occurrencesMock[0]);
   const [selectedName, setSelectedName] = useState<string>("");

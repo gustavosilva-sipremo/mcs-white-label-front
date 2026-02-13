@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { PasswordFlowLayout } from "@/core/renders/layouts/PasswordFlowLayout";
 
 export function PassEmailSendRenderer() {
   const [email, setEmail] = useState("");
@@ -13,7 +12,7 @@ export function PassEmailSendRenderer() {
   };
 
   return (
-    <PasswordFlowLayout title="Recuperar senha">
+    <>
       <div className="flex flex-col">
         <Label htmlFor="email" className="text-gray-700 font-medium">
           E-mail
@@ -34,6 +33,6 @@ export function PassEmailSendRenderer() {
       >
         Enviar código
       </Button>
-    </PasswordFlowLayout>
+    </>
   );
 }

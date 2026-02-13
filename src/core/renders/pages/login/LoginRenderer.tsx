@@ -5,8 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
 
-import { PasswordFlowLayout } from "@/core/renders/layouts/PasswordFlowLayout";
-
 export function LoginRenderer() {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
@@ -15,7 +13,7 @@ export function LoginRenderer() {
 
   const handleLogin = () => {
     console.log("Login com:", { user, password });
-    // Aqui você pode chamar a API de login
+    // chamar API de login aqui
   };
 
   const handleForgotPassword = () => {
@@ -23,7 +21,12 @@ export function LoginRenderer() {
   };
 
   return (
-    <PasswordFlowLayout title="Acesse sua conta">
+    <>
+      {/* Título */}
+      <h1 className="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-6">
+        Acesse sua conta
+      </h1>
+
       {/* Campo Usuário */}
       <div className="flex flex-col">
         <Label htmlFor="user" className="text-gray-700 font-medium">
@@ -78,6 +81,6 @@ export function LoginRenderer() {
       >
         Esqueci minha senha
       </Button>
-    </PasswordFlowLayout>
+    </>
   );
 }
