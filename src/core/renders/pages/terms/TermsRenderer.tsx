@@ -1,5 +1,5 @@
 import { TermsAcceptance } from "@/components/sections/Terms";
-import { useContract } from "../contracts/contract-provider";
+import { useContract } from "@/core/contracts/contract-provider";
 import { TERMS_MOCK } from "@/mocks/mock-terms";
 
 export function TermsRenderer() {

@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useContract } from "../contracts/contract-provider";
+import { useContract } from "@/core/contracts/contract-provider";
 import { Trash2, PlusCircle, Clock, CheckCircle } from "lucide-react";
 
 interface Occurrence {
