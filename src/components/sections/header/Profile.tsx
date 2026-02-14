@@ -1,10 +1,18 @@
+import { cn } from "@/lib/utils";
+
 interface ProfileProps {
     name: string;
     accountType: string;
+    compactMobile?: boolean;
+    className?: string;
 }
 
-export function Profile({ name, accountType }: ProfileProps) {
-    // Gera iniciais a partir do nome
+export function Profile({
+    name,
+    accountType,
+    compactMobile = false,
+    className,
+}: ProfileProps) {
     const initials = name
         .split(" ")
         .map((n) => n[0])
@@ -13,17 +21,37 @@ export function Profile({ name, accountType }: ProfileProps) {
         .slice(0, 2);
 
     return (
-        <div className="flex items-center gap-3 px-2 py-1 rounded-md select-none">
-            {/* Avatar com iniciais */}
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-background font-semibold text-sm">
+        <div
+            className={cn(
+                "flex items-center select-none rounded-md",
+                compactMobile ? "p-0" : "gap-3 px-2 py-1",
+                className
+            )}
+        >
+            {/* Avatar */}
+            <div
+                className={cn(
+                    "flex items-center justify-center rounded-full bg-primary text-background font-semibold",
+                    compactMobile
+                        ? "h-9 w-9 text-sm"
+                        : "h-10 w-10 text-sm"
+                )}
+                title={name}
+            >
                 {initials}
             </div>
 
-            {/* Nome e tipo */}
-            <div className="flex flex-col text-sm">
-                <span className="font-medium text-foreground">{name}</span>
-                <span className="text-xs text-muted-foreground capitalize">{accountType}</span>
-            </div>
+            {/* Nome e tipo (somente desktop) */}
+            {!compactMobile && (
+                <div className="flex flex-col text-sm leading-tight">
+                    <span className="font-medium text-foreground truncate">
+                        {name}
+                    </span>
+                    <span className="text-xs text-muted-foreground capitalize truncate">
+                        {accountType}
+                    </span>
+                </div>
+            )}
         </div>
     );
 }

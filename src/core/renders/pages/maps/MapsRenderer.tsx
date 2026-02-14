@@ -108,8 +108,9 @@ export function MapsRenderer(): JSX.Element {
     }, [mapLoaded]);
 
     return (
-        <div className="relative w-full flex flex-col items-center px-4 py-6">
-            <div className="relative w-full max-w-full sm:max-w-6xl h-[60vh] sm:h-[736px] rounded-lg overflow-hidden shadow-lg border border-gray-200 bg-white">
+        <div className="relative w-full flex flex-col items-center justify-center px-4 py-6">
+            <BackgroundPattern opacity={0.1} size={64} />
+            <div className="relative w-full max-w-full sm:max-w-6xl  h-[360px] sm:h-[60vh] md:h-[736px] rounded-lg z-10 overflow-hidden shadow-lg border border-gray-200 bg-[#f2f4f7]">
                 {/* Placeholder por cima do mapa */}
                 {!mapLoaded && <MapPlaceholder />}
 
