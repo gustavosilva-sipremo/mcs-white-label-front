@@ -21,8 +21,6 @@
                 ├── PageLoader.tsx
                 ├── Watermark.tsx
             └── 📁sections
-                └── 📁external-users
-                    ├── users-columns.tsx
                 └── 📁footer
                     ├── Footer.tsx
                 └── 📁forms
@@ -50,9 +48,12 @@
                 └── 📁sidebar
                     ├── Sidebar.tsx
                 └── 📁tables
+                    └── 📁columns
+                        ├── CommonColumns.tsx
+                        ├── ExternalUsersCols.tsx
+                        ├── UsersCols.tsx
                     ├── DataTable.tsx
                     ├── ExternalUsersTable.tsx
-                    ├── users-columns.tsx
                     ├── UsersTable.tsx
                 └── 📁terms
                     ├── Terms.tsx
@@ -177,6 +178,7 @@
             ├── mock-terms.ts
             ├── mock-users.ts
         └── 📁types
+            ├── account.type.d.ts
             ├── data.table.d.ts
             ├── images.d.ts
         ├── App.tsx

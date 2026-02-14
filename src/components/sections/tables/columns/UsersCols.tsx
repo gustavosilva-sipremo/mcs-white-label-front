@@ -4,6 +4,7 @@ import {
   createActionsColumn,
   textColumn,
   dateColumn,
+  SortableHeader,
 } from "./CommonColumns";
 import { getAccountTypeLabel } from "@/lib/utils";
 
@@ -19,7 +20,9 @@ export const usersColumns: ColumnDef<UserModel>[] = [
 
   {
     accessorKey: "accountType",
-    header: "Tipo",
+    header: ({ column }) => (
+      <SortableHeader column={column} title="Tipo" />
+    ),
     cell: ({ row }) => {
       const value = row.getValue<string>("accountType");
 
@@ -39,6 +42,7 @@ export const usersColumns: ColumnDef<UserModel>[] = [
         </span>
       );
     },
+    enableSorting: true,
   },
 
   dateColumn<UserModel>("createdAt", "Criado em"),
