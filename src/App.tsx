@@ -4,6 +4,7 @@ import { DashLayout } from "@/core/renders/layouts/DashLayout";
 import { NormalLayout } from "@/core/renders/layouts/NormalLayout";
 
 import { NotFoundRenderer } from "@/core/renders/pages/404/NotFoundRenderer";
+import { MapsRenderer } from "@/core/renders/pages/maps/MapsRenderer";
 import { HomeRenderer } from "@/core/renders/pages/home/HomeRenderer";
 import { UsersRenderer } from "@/core/renders/pages/users/UsersRenderer";
 import { TermsRenderer } from "@/core/renders/pages/terms/TermsRenderer";
@@ -23,6 +24,9 @@ export default function App() {
         <Route element={<DashLayout />}>
           {/* Rota Home */}
           <Route path="/" element={<HomeRenderer />} />
+
+          {/* Rota Maps */}
+          <Route path="/maps" element={<MapsRenderer />} />
 
           {/* Rotas Users */}
           <Route path="/users" element={<UsersRenderer />} />

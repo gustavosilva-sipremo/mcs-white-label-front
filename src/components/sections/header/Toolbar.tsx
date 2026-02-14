@@ -49,10 +49,12 @@ export function Toolbar({ allowThemeToggle = true }: ToolbarProps) {
 
             {/* Map button com badge */}
             <div className="relative">
-                <Button variant="outline" size="sm" className="p-2">
-                    <MapPin className="w-5 h-5" />
-                </Button>
-                <span className="absolute top-0 right-0 block w-2 h-2 rounded-full bg-red-500 ring-1 ring-background animate-pulse" />
+                <a href="/maps">
+                    <Button variant="outline" size="sm" className="p-2">
+                        <MapPin className="w-5 h-5" />
+                    </Button>
+                    <span className="absolute top-0 right-0 block w-2 h-2 rounded-full bg-red-500 ring-1 ring-background animate-pulse" />
+                </a>
             </div>
 
             {/* Theme toggle */}
