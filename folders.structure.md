@@ -17,6 +17,7 @@
             └── 📁others
                 ├── BackgroundPattern.tsx
                 ├── BrandingLogo.tsx
+                ├── CodeInput.tsx
                 ├── PageLoader.tsx
                 ├── Watermark.tsx
             └── 📁sections
@@ -41,18 +42,22 @@
                             ├── CreateExternalUserModal.tsx
                             ├── CreateInternalUserModal.tsx
                             ├── CreateUserModalBase.tsx
-                        └── 📁table
-                            ├── DataTable.tsx
-                            ├── ExternalUsersTable.tsx
-                            ├── users-columns.tsx
-                            ├── UsersTable.tsx
                 └── 📁graphs
                 └── 📁header
                     ├── Header.tsx
+                    ├── Profile.tsx
+                    ├── Toolbar.tsx
                 └── 📁sidebar
                     ├── Sidebar.tsx
+                └── 📁tables
+                    ├── DataTable.tsx
+                    ├── ExternalUsersTable.tsx
+                    ├── users-columns.tsx
+                    ├── UsersTable.tsx
                 └── 📁terms
                     ├── Terms.tsx
+                └── 📁users
+                    ├── UsersSection.tsx
             └── 📁ui
                 ├── badge.tsx
                 ├── button.tsx
@@ -86,6 +91,8 @@
                         ├── HomeRenderer.tsx
                     └── 📁login
                         ├── LoginRenderer.tsx
+                    └── 📁maps
+                        ├── MapsRenderer.tsx
                     └── 📁report
                         ├── ReportRenderer.tsx
                     └── 📁reset_password
