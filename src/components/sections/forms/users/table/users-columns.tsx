@@ -1,5 +1,4 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Pencil, Trash2 } from "lucide-react";
 import { UserModel } from "@/mocks/mock-users";
@@ -79,12 +78,30 @@ export const usersColumns: ColumnDef<UserModel>[] = [
     accessorKey: "accountType",
     header: "Tipo",
     cell: ({ row }) => {
-      const value = row.getValue<"admin" | "user">("accountType");
+      const value = row.getValue<string>("accountType");
+
+      // Map de tipos de usuário para labels e cores (raridade/importância)
+      const accountTypeMap: Record<
+        string,
+        { label: string; className: string }
+      > = {
+        common: { label: "Comum", className: "bg-gray-200 text-gray-800" }, // Cinza
+        admin: { label: "Administrador", className: "bg-blue-600 text-white" }, // Azul
+        guest: { label: "Convidado", className: "bg-purple-500 text-white" }, // Roxo
+        sipremo: { label: "Sipremo", className: "bg-red-500 text-white" }, // Vermelho
+      };
+
+      const typeInfo = accountTypeMap[value] ?? {
+        label: value,
+        className: "bg-gray-300 text-gray-800",
+      };
 
       return (
-        <Badge variant={value === "admin" ? "default" : "secondary"}>
-          {value === "admin" ? "Administrador" : "Comum"}
-        </Badge>
+        <span
+          className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${typeInfo.className}`}
+        >
+          {typeInfo.label}
+        </span>
       );
     },
   },

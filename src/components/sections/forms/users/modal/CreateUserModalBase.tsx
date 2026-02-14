@@ -11,19 +11,15 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select";
 
-import { PhoneInput } from "@/components/sections/forms/users/PhoneInput";
-import { PasswordFields } from "@/components/sections/forms/users/PasswordFields";
-import { Responsibilities } from "@/components/sections/forms/users/Responsibilities";
+import { PhoneInput } from "@/components/sections/forms/users/inputs/PhoneInput";
+import { TextInput } from "@/components/sections/forms/users/inputs/TextInput";
+import { EmailInput } from "@/components/sections/forms/users/inputs/EmailInput";
+import { AccountTypeSelect } from "@/components/sections/forms/users/inputs/AccountTypeSelect";
+
+import { PasswordFields } from "@/components/sections/forms/users/fields/PasswordFields";
+import { Responsibilities } from "@/components/sections/forms/users/fields/Responsibilities";
+import { Label } from "@/components/ui/label";
 
 interface BaseFormData {
   name: string;
@@ -31,7 +27,7 @@ interface BaseFormData {
   email?: string;
   phone?: string;
   sectors: string[];
-  roles: string[];
+  functions: string[];
   accountType: string;
   password?: string;
   confirmPassword?: string;
@@ -70,7 +66,7 @@ export function CreateUserModalBase({
     email: "",
     phone: "",
     sectors: [],
-    roles: [],
+    functions: [],
     accountType: "",
     password: "",
     confirmPassword: "",
@@ -121,68 +117,48 @@ export function CreateUserModalBase({
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div className="space-y-2">
-              <Label>Nome completo *</Label>
-              <Input
-                value={formData.name}
-                onChange={(e) => handleChange("name", e.target.value)}
-              />
-            </div>
+            <TextInput
+              label="Nome completo"
+              required
+              value={formData.name}
+              onChange={(val) => handleChange("name", val)}
+            />
 
             {withUsername && (
-              <div className="space-y-2">
-                <Label>Usuário *</Label>
-                <Input
-                  value={formData.username}
-                  onChange={(e) => handleChange("username", e.target.value)}
-                />
-              </div>
+              <TextInput
+                label="Usuário"
+                required
+                value={formData.username ?? ""}
+                onChange={(val) => handleChange("username", val)}
+              />
             )}
 
-            <div className="space-y-2">
-              <Label>E-mail</Label>
-              <Input
-                type="email"
-                value={formData.email}
-                onChange={(e) => handleChange("email", e.target.value)}
-              />
-            </div>
+            <EmailInput
+              label="E-mail"
+              value={formData.email ?? ""}
+              onChange={(val) => handleChange("email", val)}
+            />
 
             <div className="space-y-2">
               <Label>Telefone</Label>
               <PhoneInput
                 value={formData.phone ?? ""}
-                onChange={(value) => handleChange("phone", value)}
+                onChange={(val) => handleChange("phone", val)}
               />
             </div>
 
-            <div className="space-y-2 sm:col-span-2">
-              <Label>Tipo de conta *</Label>
-              <Select
-                value={formData.accountType}
-                onValueChange={(value) => handleChange("accountType", value)}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Selecione" />
-                </SelectTrigger>
-                <SelectContent>
-                  {accountOptions.map((opt) => (
-                    <SelectItem
-                      key={opt.value}
-                      value={opt.value}
-                      className="cursor-pointer"
-                    >
-                      {opt.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+            <AccountTypeSelect
+              label="Tipo de conta"
+              required
+              value={formData.accountType}
+              options={accountOptions}
+              onChange={(val) => handleChange("accountType", val)}
+            />
           </div>
 
           <Responsibilities
             sectors={formData.sectors}
-            roles={formData.roles}
+            functions={formData.functions}
             onChange={(field, value) => handleChange(field, value)}
           />
 

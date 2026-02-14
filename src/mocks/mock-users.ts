@@ -1,4 +1,4 @@
-export type UserType = "admin" | "common";
+export type UserType = "admin" | "common" | "guest" | "sipremo";
 
 export interface UserModel {
   id: string;
@@ -22,7 +22,7 @@ export const mockUsers: UserModel[] = [
     phone: "+55 (11) 99999-0001",
     sector: "Tecnologia",
     function: "Frontend Developer",
-    accountType: "admin",
+    accountType: "sipremo",
     createdAt: "2024-01-10",
     updatedAt: "2024-02-05",
   },
@@ -34,7 +34,7 @@ export const mockUsers: UserModel[] = [
     phone: "+55 (11) 98888-0002",
     sector: "Financeiro",
     function: "Analista",
-    accountType: "common",
+    accountType: "sipremo",
     createdAt: "2024-01-15",
     updatedAt: "2024-02-02",
   },
@@ -46,7 +46,7 @@ export const mockUsers: UserModel[] = [
     phone: "+55 (11) 97777-0003",
     sector: "RH",
     function: "Recrutadora",
-    accountType: "common",
+    accountType: "guest",
     createdAt: "2024-01-18",
     updatedAt: "2024-02-01",
   },
@@ -58,7 +58,7 @@ export const mockUsers: UserModel[] = [
     phone: "+55 (11) 96666-0004",
     sector: "Tecnologia",
     function: "Backend Developer",
-    accountType: "common",
+    accountType: "admin",
     createdAt: "2024-01-20",
     updatedAt: "2024-02-06",
   },

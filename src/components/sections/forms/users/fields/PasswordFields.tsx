@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { PasswordInput } from "./PasswordInput";
+import { PasswordInput } from "../inputs/PasswordInput";
 
 interface PasswordFieldsProps {
   password?: string;

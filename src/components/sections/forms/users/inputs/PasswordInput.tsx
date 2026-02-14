@@ -9,6 +9,7 @@ interface PasswordInputProps {
   id: string;
   label: string;
   value: string;
+  required?: boolean;
   placeholder?: string;
   onChange: (value: string) => void;
 }
@@ -17,6 +18,7 @@ export function PasswordInput({
   id,
   label,
   value,
+  required = true,
   placeholder,
   onChange,
 }: PasswordInputProps) {
@@ -24,7 +26,10 @@ export function PasswordInput({
 
   return (
     <div className="space-y-2">
-      <Label htmlFor={id}>{label}</Label>
+      <Label htmlFor={id}>
+        {label}
+        {required ? " *" : ""}
+      </Label>
 
       <div className="relative">
         <Input
@@ -32,6 +37,7 @@ export function PasswordInput({
           type={show ? "text" : "password"}
           placeholder={placeholder}
           value={value}
+          required={required}
           onChange={(e) => onChange(e.target.value)}
           className="pr-10"
         />

@@ -17,6 +17,8 @@ export function CreateInternalUserModal({ open, onOpenChange }: Props) {
       accountOptions={[
         { value: "admin", label: "Administrador" },
         { value: "common", label: "Usuário comum" },
+        { value: "guest", label: "Convidado" },
+        { value: "sipremo", label: "Sipremo" },
       ]}
       withUsername
       withPassword

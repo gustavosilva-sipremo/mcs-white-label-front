@@ -1,21 +1,37 @@
 import { useState } from "react";
-import { User, Plus, Download, FileText, FileSpreadsheet } from "lucide-react";
+import { User, Plus, FileSpreadsheet } from "lucide-react";
 
 import { UsersTable } from "@/components/sections/forms/users/table/UsersTable";
 import { CreateInternalUserModal } from "@/components/sections/forms/users/modal/CreateInternalUserModal";
 import { mockUsers } from "@/mocks/mock-users";
 
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 export function UsersRenderer() {
   const hasUsers = mockUsers.length > 0;
   const [openCreateUser, setOpenCreateUser] = useState(false);
+
+  // Função simples para exportar CSV
+  const handleExportCSV = () => {
+    if (!mockUsers.length) return;
+
+    const headers = Object.keys(mockUsers[0]);
+    const csvRows = [
+      headers.join(","), // cabeçalho
+      ...mockUsers.map((row) =>
+        headers.map((field) => `"${(row as any)[field]}"`).join(","),
+      ),
+    ];
+
+    const csvContent = "data:text/csv;charset=utf-8," + csvRows.join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "usuarios.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <section className="flex flex-1 flex-col gap-8 p-6">
@@ -39,32 +55,17 @@ export function UsersRenderer() {
 
           {/* Ações */}
           <div className="flex items-center gap-2">
-            {/* Exportar */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild disabled>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  disabled
-                  className="gap-2 cursor-not-allowed"
-                >
-                  <Download className="h-4 w-4" />
-                  Exportar
-                </Button>
-              </DropdownMenuTrigger>
-
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem disabled className="gap-2">
-                  <FileText className="h-4 w-4" />
-                  Exportar como PDF
-                </DropdownMenuItem>
-
-                <DropdownMenuItem disabled className="gap-2">
-                  <FileSpreadsheet className="h-4 w-4" />
-                  Exportar como CSV
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            {/* Exportar CSV */}
+            <Button
+              variant="outline"
+              size="sm"
+              className="gap-2"
+              onClick={handleExportCSV}
+              disabled={!hasUsers}
+            >
+              <FileSpreadsheet className="h-4 w-4" />
+              Exportar CSV
+            </Button>
 
             {/* Novo usuário */}
             <Button
