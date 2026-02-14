@@ -3,14 +3,12 @@ import { cn } from "@/lib/utils";
 interface ProfileProps {
     name: string;
     accountType: string;
-    compactMobile?: boolean;
     className?: string;
 }
 
 export function Profile({
     name,
     accountType,
-    compactMobile = false,
     className,
 }: ProfileProps) {
     const initials = name
@@ -24,7 +22,8 @@ export function Profile({
         <div
             className={cn(
                 "flex items-center select-none rounded-md",
-                compactMobile ? "p-0" : "gap-3 px-2 py-1",
+                // mobile compacto / desktop espaçado
+                "p-0 sm:gap-3 sm:px-2 sm:py-1",
                 className
             )}
         >
@@ -32,26 +31,23 @@ export function Profile({
             <div
                 className={cn(
                     "flex items-center justify-center rounded-full bg-primary text-background font-semibold",
-                    compactMobile
-                        ? "h-9 w-9 text-sm"
-                        : "h-10 w-10 text-sm"
+                    // mobile menor / desktop maior
+                    "h-9 w-9 text-sm sm:h-10 sm:w-10"
                 )}
                 title={name}
             >
                 {initials}
             </div>
 
-            {/* Nome e tipo (somente desktop) */}
-            {!compactMobile && (
-                <div className="flex flex-col text-sm leading-tight">
-                    <span className="font-medium text-foreground truncate">
-                        {name}
-                    </span>
-                    <span className="text-xs text-muted-foreground capitalize truncate">
-                        {accountType}
-                    </span>
-                </div>
-            )}
+            {/* Nome e tipo → só aparece no desktop */}
+            <div className="hidden sm:flex flex-col text-sm leading-tight">
+                <span className="font-medium text-foreground truncate">
+                    {name}
+                </span>
+                <span className="text-xs text-muted-foreground capitalize truncate">
+                    {accountType}
+                </span>
+            </div>
         </div>
     );
 }

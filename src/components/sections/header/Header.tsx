@@ -45,7 +45,6 @@ export function Header({ onMenuClick }: HeaderProps) {
       <Profile
         name={user.name}
         accountType={user.accountType}
-        compactMobile
       />
     </header>
   );
