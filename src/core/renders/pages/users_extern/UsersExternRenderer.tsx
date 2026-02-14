@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { User, Plus, Download, FileText, FileSpreadsheet } from "lucide-react";
 
-import { UsersTable } from "@/components/sections/external-users/users-table";
+import { ExternalUsersTable } from "@/components/sections/forms/users/table/ExternalUsersTable";
 import { CreateExternalUserModal } from "@/components/sections/forms/users/modal/CreateExternalUserModal";
 import { mockUsers } from "@/mocks/mock-external-users";
 
@@ -81,7 +81,7 @@ export function ExternalUsersRenderer() {
         {/* Conteúdo */}
         {hasUsers ? (
           <div className="flex-1 p-4">
-            <UsersTable data={mockUsers} />
+            <ExternalUsersTable data={mockUsers} />
           </div>
         ) : (
           <div className="flex flex-1 flex-col items-center justify-center gap-4 px-6 py-12">

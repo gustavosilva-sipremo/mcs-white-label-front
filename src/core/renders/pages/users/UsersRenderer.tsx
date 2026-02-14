@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { User, Plus, Download, FileText, FileSpreadsheet } from "lucide-react";
 
-import { UsersTable } from "@/components/others/users-table";
+import { UsersTable } from "@/components/sections/forms/users/table/UsersTable";
 import { CreateInternalUserModal } from "@/components/sections/forms/users/modal/CreateInternalUserModal";
 import { mockUsers } from "@/mocks/mock-users";
 

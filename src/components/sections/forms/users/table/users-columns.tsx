@@ -66,12 +66,12 @@ export const usersColumns: ColumnDef<UserModel>[] = [
   },
 
   {
-    accessorKey: "department",
+    accessorKey: "sector",
     header: "Setor",
   },
 
   {
-    accessorKey: "role",
+    accessorKey: "function",
     header: "Função",
   },
 

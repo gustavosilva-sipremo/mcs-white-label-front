@@ -25,38 +25,31 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 
-import { usersColumns } from "./users-columns";
-import { UserModel } from "@/mocks/mock-users";
+import { DataTableProps } from "@/types/data.table";
 
-interface UsersTableProps {
-  data: UserModel[];
-}
-
-const searchableColumns = [
-  { label: "Usuário", value: "username" },
-  { label: "Nome", value: "name" },
-  { label: "Email", value: "email" },
-  { label: "Setor", value: "department" },
-];
-
-export function UsersTable({ data }: UsersTableProps) {
-  const [columnFilter, setColumnFilter] = React.useState("username");
+export function DataTable<T>({
+  data,
+  columns,
+  searchableColumns,
+  emptyMessage = "Nenhum resultado encontrado.",
+}: DataTableProps<T>) {
+  const [columnFilter, setColumnFilter] = React.useState<keyof T>(
+    searchableColumns[0].value,
+  );
   const [filterValue, setFilterValue] = React.useState("");
 
-  const table = useReactTable({
+  const table = useReactTable<T>({
     data,
-    columns: usersColumns,
+    columns,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   });
 
-  // Aplica o filtro quando coluna ou valor mudar
   React.useEffect(() => {
-    // limpa todos os filtros antes
     table.resetColumnFilters();
 
-    const column = table.getColumn(columnFilter);
+    const column = table.getColumn(columnFilter as string);
     if (column) {
       column.setFilterValue(filterValue);
     }
@@ -64,15 +57,18 @@ export function UsersTable({ data }: UsersTableProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      {/* Barra de filtros */}
+      {/* Filtros */}
       <div className="flex flex-wrap items-center gap-3">
-        <Select value={columnFilter} onValueChange={setColumnFilter}>
+        <Select
+          value={columnFilter as string}
+          onValueChange={(value) => setColumnFilter(value as keyof T)}
+        >
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Pesquisar por" />
           </SelectTrigger>
           <SelectContent>
             {searchableColumns.map((col) => (
-              <SelectItem key={col.value} value={col.value}>
+              <SelectItem key={String(col.value)} value={String(col.value)}>
                 {col.label}
               </SelectItem>
             ))}
@@ -122,10 +118,10 @@ export function UsersTable({ data }: UsersTableProps) {
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={usersColumns.length}
+                  colSpan={columns.length}
                   className="h-24 text-center text-muted-foreground"
                 >
-                  Nenhum resultado encontrado.
+                  {emptyMessage}
                 </TableCell>
               </TableRow>
             )}
