@@ -1,5 +1,5 @@
 import { DataTable } from "./DataTable";
-import { usersColumns } from "./columns/users-columns";
+import { usersColumns } from "./columns/UsersCols";
 import { UserModel } from "@/mocks/mock-users";
 
 const searchableColumns = [

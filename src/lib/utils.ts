@@ -35,3 +35,23 @@ export function exportCSV<T extends Record<string, any>>(
   link.click();
   document.body.removeChild(link);
 }
+
+/**
+ * Exporta os types de conta para um label legível
+ */
+export function getAccountTypeLabel(value: string): string {
+  const map: Record<string, string> = {
+    // externos
+    official: "Oficial",
+    user: "Usuário",
+    area: "Área",
+
+    // internos
+    common: "Comum",
+    admin: "Administrador",
+    guest: "Convidado",
+    sipremo: "Sipremo",
+  };
+
+  return map[value] ?? value;
+}
