@@ -15,6 +15,7 @@ import { ReportRenderer } from "./core/renders/pages/report/ReportRenderer";
 import { PassEmailSendRenderer } from "@/core/renders/pages/reset_password/PassEmailSendRenderer";
 import { PassEmailCodeRenderer } from "@/core/renders/pages/reset_password/PassEmailCodeRenderer";
 import { PassResetRenderer } from "@/core/renders/pages/reset_password/PassResetRenderer";
+import { TeamsRenderer } from "./core/renders/pages/teams/TeamsRenderer";
 
 export default function App() {
   return (
@@ -27,6 +28,9 @@ export default function App() {
 
           {/* Rota Maps */}
           <Route path="/maps" element={<MapsRenderer />} />
+
+          {/* Rota Teams */}
+          <Route path="/teams" element={<TeamsRenderer />} />
 
           {/* Rotas Users */}
           <Route path="/users" element={<UsersRenderer />} />
