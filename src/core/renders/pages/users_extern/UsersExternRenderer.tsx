@@ -2,7 +2,7 @@ import { useState } from "react";
 import { User, Plus, Download, FileText, FileSpreadsheet } from "lucide-react";
 
 import { UsersTable } from "@/components/sections/external-users/users-table";
-import { CreateExternalUserModal } from "@/components/sections/external-users/create-user-modal";
+import { CreateExternalUserModal } from "@/components/sections/forms/users/modal/CreateExternalUserModal";
 import { mockUsers } from "@/mocks/mock-external-users";
 
 import { Button } from "@/components/ui/button";
@@ -14,23 +14,22 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export function ExternalUsersRenderer() {
-  const hasUsers = mockUsers.length > 0;
+  const hasUsers = Boolean(mockUsers.length);
   const [openCreateUser, setOpenCreateUser] = useState(false);
 
   return (
     <section className="flex flex-1 flex-col gap-8 p-6">
-      {/* Header da página */}
+      {/* Header */}
       <header className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight text-foreground">
           Usuários Externos
         </h1>
         <p className="max-w-2xl text-sm text-muted-foreground">
-          Gerencie os usuários do sistema externos, órgãos oficiais e áreas de
-          trabalho.
+          Gerencie os usuários externos, órgãos oficiais e áreas de trabalho.
         </p>
       </header>
 
-      {/* Container principal */}
+      {/* Container */}
       <div className="relative flex flex-1 flex-col rounded-xl border border-border bg-card shadow-sm">
         {/* Top bar */}
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-5 py-4">
@@ -43,7 +42,12 @@ export function ExternalUsersRenderer() {
             {/* Exportar */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild disabled>
-                <Button variant="outline" size="sm" disabled className="gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled
+                  className="gap-2 cursor-not-allowed"
+                >
                   <Download className="h-4 w-4" />
                   Exportar
                 </Button>

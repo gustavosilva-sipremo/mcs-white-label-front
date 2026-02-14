@@ -1,3 +1,4 @@
+// /modal/CreateUserModalBase.tsx
 import { useState } from "react";
 import { UserPlus } from "lucide-react";
 
@@ -9,7 +10,6 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -21,29 +21,50 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 
-import { PasswordFields } from "@/components/sections/forms/users/PasswordFields";
 import { PhoneInput } from "@/components/sections/forms/users/PhoneInput";
-import { Responsibilities } from "./Responsibilities";
+import { PasswordFields } from "@/components/sections/forms/users/PasswordFields";
+import { Responsibilities } from "@/components/sections/forms/users/Responsibilities";
 
-interface CreateUserModalProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-}
-
-interface FormData {
+interface BaseFormData {
   name: string;
-  username: string;
-  email: string;
-  phone: string;
+  username?: string;
+  email?: string;
+  phone?: string;
   sectors: string[];
   roles: string[];
   accountType: string;
-  password: string;
-  confirmPassword: string;
+  password?: string;
+  confirmPassword?: string;
 }
 
-export function CreateUserModal({ open, onOpenChange }: CreateUserModalProps) {
-  const initialState: FormData = {
+interface CreateUserModalBaseProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+
+  title: string;
+  description?: string;
+
+  requiredFields: (keyof BaseFormData)[];
+  accountOptions: { value: string; label: string }[];
+
+  withUsername?: boolean;
+  withPassword?: boolean;
+
+  onSubmit: (data: BaseFormData) => void;
+}
+
+export function CreateUserModalBase({
+  open,
+  onOpenChange,
+  title,
+  description,
+  requiredFields,
+  accountOptions,
+  withUsername = false,
+  withPassword = false,
+  onSubmit,
+}: CreateUserModalBaseProps) {
+  const initialState: BaseFormData = {
     name: "",
     username: "",
     email: "",
@@ -55,9 +76,9 @@ export function CreateUserModal({ open, onOpenChange }: CreateUserModalProps) {
     confirmPassword: "",
   };
 
-  const [formData, setFormData] = useState<FormData>(initialState);
+  const [formData, setFormData] = useState<BaseFormData>(initialState);
 
-  const handleChange = <K extends keyof FormData>(
+  const handleChange = <K extends keyof BaseFormData>(
     field: K,
     value: string | string[],
   ) => {
@@ -66,12 +87,6 @@ export function CreateUserModal({ open, onOpenChange }: CreateUserModalProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const requiredFields: (keyof FormData)[] = [
-      "name",
-      "username",
-      "accountType",
-      "password",
-    ];
 
     const missing = requiredFields.filter((field) => {
       const val = formData[field];
@@ -83,7 +98,7 @@ export function CreateUserModal({ open, onOpenChange }: CreateUserModalProps) {
       return;
     }
 
-    console.log("Novo usuário:", formData);
+    onSubmit(formData);
     onOpenChange(false);
     setFormData(initialState);
   };
@@ -99,40 +114,35 @@ export function CreateUserModal({ open, onOpenChange }: CreateUserModalProps) {
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-lg sm:text-xl">
             <UserPlus className="h-5 w-5 text-primary" />
-            Novo usuário
+            {title}
           </DialogTitle>
-          <DialogDescription className="text-sm sm:text-base">
-            Preencha as informações abaixo para criar um novo usuário no
-            sistema.
-          </DialogDescription>
+          {description && <DialogDescription>{description}</DialogDescription>}
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Dados principais */}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <Label>Nome completo *</Label>
               <Input
-                placeholder="Ex: Gustavo Silva"
                 value={formData.name}
                 onChange={(e) => handleChange("name", e.target.value)}
               />
             </div>
 
-            <div className="space-y-2">
-              <Label>Usuário *</Label>
-              <Input
-                placeholder="Ex: g.silva"
-                value={formData.username}
-                onChange={(e) => handleChange("username", e.target.value)}
-              />
-            </div>
+            {withUsername && (
+              <div className="space-y-2">
+                <Label>Usuário *</Label>
+                <Input
+                  value={formData.username}
+                  onChange={(e) => handleChange("username", e.target.value)}
+                />
+              </div>
+            )}
 
             <div className="space-y-2">
               <Label>E-mail</Label>
               <Input
                 type="email"
-                placeholder="email@empresa.com"
                 value={formData.email}
                 onChange={(e) => handleChange("email", e.target.value)}
               />
@@ -141,54 +151,52 @@ export function CreateUserModal({ open, onOpenChange }: CreateUserModalProps) {
             <div className="space-y-2">
               <Label>Telefone</Label>
               <PhoneInput
-                value={formData.phone}
+                value={formData.phone ?? ""}
                 onChange={(value) => handleChange("phone", value)}
               />
             </div>
 
-            {/* Tipo de conta */}
             <div className="space-y-2 sm:col-span-2">
               <Label>Tipo de conta *</Label>
               <Select
                 value={formData.accountType}
                 onValueChange={(value) => handleChange("accountType", value)}
               >
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Selecione o tipo de conta" />
+                <SelectTrigger>
+                  <SelectValue placeholder="Selecione" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem className="cursor-pointer" value="admin">
-                    Administrador
-                  </SelectItem>
-                  <SelectItem className="cursor-pointer" value="common">
-                    Usuário comum
-                  </SelectItem>
+                  {accountOptions.map((opt) => (
+                    <SelectItem
+                      key={opt.value}
+                      value={opt.value}
+                      className="cursor-pointer"
+                    >
+                      {opt.label}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
           </div>
 
-          {/* Responsabilidades */}
           <Responsibilities
             sectors={formData.sectors}
             roles={formData.roles}
             onChange={(field, value) => handleChange(field, value)}
           />
 
-          {/* Senha */}
-          <div className="rounded-lg border border-border p-4">
-            <p className="mb-3 text-sm font-medium text-foreground">
-              Segurança *
-            </p>
-            <PasswordFields
-              password={formData.password}
-              confirmPassword={formData.confirmPassword}
-              onChange={(field, value) => handleChange(field, value)}
-            />
-          </div>
+          {withPassword && (
+            <div className="rounded-lg border border-border p-4">
+              <PasswordFields
+                password={formData.password ?? ""}
+                confirmPassword={formData.confirmPassword ?? ""}
+                onChange={(field, value) => handleChange(field, value)}
+              />
+            </div>
+          )}
 
-          {/* Ações */}
-          <DialogFooter className="flex flex-col sm:flex-row gap-2 sm:justify-end">
+          <DialogFooter className="flex gap-2 justify-end">
             <Button type="button" variant="outline" onClick={handleCancel}>
               Cancelar
             </Button>

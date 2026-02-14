@@ -2,7 +2,7 @@ import { useState } from "react";
 import { User, Plus, Download, FileText, FileSpreadsheet } from "lucide-react";
 
 import { UsersTable } from "@/components/others/users-table";
-import { CreateUserModal } from "@/components/sections/forms/users/create-user-modal";
+import { CreateInternalUserModal } from "@/components/sections/forms/users/modal/CreateInternalUserModal";
 import { mockUsers } from "@/mocks/mock-users";
 
 import { Button } from "@/components/ui/button";
@@ -19,7 +19,7 @@ export function UsersRenderer() {
 
   return (
     <section className="flex flex-1 flex-col gap-8 p-6">
-      {/* Header da página */}
+      {/* Header */}
       <header className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight text-foreground">
           Usuários
@@ -29,7 +29,7 @@ export function UsersRenderer() {
         </p>
       </header>
 
-      {/* Container principal */}
+      {/* Container */}
       <div className="relative flex flex-1 flex-col rounded-xl border border-border bg-card shadow-sm">
         {/* Top bar */}
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-5 py-4">
@@ -42,7 +42,12 @@ export function UsersRenderer() {
             {/* Exportar */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild disabled>
-                <Button variant="outline" size="sm" disabled className="gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled
+                  className="gap-2 cursor-not-allowed"
+                >
                   <Download className="h-4 w-4" />
                   Exportar
                 </Button>
@@ -96,8 +101,11 @@ export function UsersRenderer() {
         )}
       </div>
 
-      {/* Modal */}
-      <CreateUserModal open={openCreateUser} onOpenChange={setOpenCreateUser} />
+      {/* Modal genérico */}
+      <CreateInternalUserModal
+        open={openCreateUser}
+        onOpenChange={setOpenCreateUser}
+      />
     </section>
   );
 }
