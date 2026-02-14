@@ -3,12 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Eye, EyeOff } from "lucide-react";
+import { PasswordInput } from "@/components/sections/forms/users/PasswordInput";
 
 export function LoginRenderer() {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = () => {
@@ -42,31 +41,14 @@ export function LoginRenderer() {
       </div>
 
       {/* Campo Senha */}
-      <div className="flex flex-col mt-4 relative">
-        <Label htmlFor="password" className="font-medium text-foreground">
-          Senha
-        </Label>
-        <Input
+      <div className="flex flex-col mt-4">
+        <PasswordInput
           id="password"
-          type={showPassword ? "text" : "password"}
+          label="Senha"
           placeholder="Digite sua senha"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="mt-4 pr-12"
+          onChange={setPassword}
         />
-
-        <button
-          type="button"
-          onClick={() => setShowPassword((prev) => !prev)}
-          aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
-          className="absolute right-3 top-[26px] flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
-        >
-          {showPassword ? (
-            <EyeOff className="w-5 h-5" />
-          ) : (
-            <Eye className="w-5 h-5" />
-          )}
-        </button>
       </div>
 
       {/* Botão Entrar */}

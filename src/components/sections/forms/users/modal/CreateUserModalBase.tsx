@@ -192,6 +192,8 @@ export function CreateUserModalBase({
                 password={formData.password ?? ""}
                 confirmPassword={formData.confirmPassword ?? ""}
                 onChange={(field, value) => handleChange(field, value)}
+                horizontal={false}
+                showMismatchError={true}
               />
             </div>
           )}

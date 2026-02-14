@@ -12,21 +12,30 @@
     └── 📁src
         └── 📁components
             └── 📁others
-                ├── create-user-modal.tsx
+                ├── BackgroundPattern.tsx
+                ├── BrandingLogo.tsx
                 ├── PageLoader.tsx
-                ├── PasswordFields.tsx
-                ├── PhoneInput.tsx
-                ├── Responsibilities.tsx
-                ├── users-columns.tsx
-                ├── users-table.tsx
+                ├── Watermark.tsx
             └── 📁sections
                 └── 📁external-users
-                    ├── create-user-modal.tsx
                     ├── users-columns.tsx
-                    ├── users-table.tsx
+                └── 📁footer
+                    ├── Footer.tsx
                 └── 📁forms
                     └── 📁questions
                     └── 📁users
+                        └── 📁modal
+                            ├── CreateExternalUserModal.tsx
+                            ├── CreateInternalUserModal.tsx
+                            ├── CreateUserModalBase.tsx
+                        └── 📁table
+                            ├── DataTable.tsx
+                            ├── ExternalUsersTable.tsx
+                            ├── users-columns.tsx
+                            ├── UsersTable.tsx
+                        ├── PasswordFields.tsx
+                        ├── PhoneInput.tsx
+                        ├── Responsibilities.tsx
                 └── 📁graphs
                 └── 📁header
                     ├── Header.tsx
@@ -58,7 +67,7 @@
                 ├── contract-provider.tsx
             └── 📁renders
                 └── 📁layouts
-                    ├── LayoutRenderer.tsx
+                    ├── DashLayout.tsx
                     ├── NormalLayout.tsx
                 └── 📁pages
                     └── 📁404
@@ -151,6 +160,7 @@
             ├── mock-terms.ts
             ├── mock-users.ts
         └── 📁types
+            ├── data.table.d.ts
             ├── images.d.ts
         ├── App.tsx
         ├── index.css

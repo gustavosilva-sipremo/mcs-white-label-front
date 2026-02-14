@@ -1,92 +1,64 @@
-import { useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
-
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
+import { useState, useEffect } from "react";
+import { PasswordInput } from "./PasswordInput";
 
 interface PasswordFieldsProps {
   password?: string;
   confirmPassword?: string;
   onChange?: (field: "password" | "confirmPassword", value: string) => void;
+  /** Se true, mostra os campos lado a lado; caso contrário, em coluna */
+  horizontal?: boolean;
+  /** Permite que o componente mostre erro de senhas diferentes internamente */
+  showMismatchError?: boolean;
 }
 
 export function PasswordFields({
   password = "",
   confirmPassword = "",
   onChange = () => {},
+  horizontal = true,
+  showMismatchError = true,
 }: PasswordFieldsProps) {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [mismatch, setMismatch] = useState(false);
+
+  // Verifica se as senhas coincidem
+  useEffect(() => {
+    if (password && confirmPassword) {
+      setMismatch(password !== confirmPassword);
+    } else {
+      setMismatch(false);
+    }
+  }, [password, confirmPassword]);
 
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-      {/* Senha */}
-      {"password" in { password } && (
-        <div className="space-y-2">
-          <Label htmlFor="password">Senha</Label>
-
-          <div className="relative">
-            <Input
-              id="password"
-              type={showPassword ? "text" : "password"}
-              placeholder="Digite a senha"
-              value={password}
-              onChange={(e) => onChange("password", e.target.value)}
-              className="pr-10"
-            />
-
-            <Button
-              type="button"
-              variant="ghost"
-              size="icon"
-              onClick={() => setShowPassword((prev) => !prev)}
-              className="absolute right-1 top-1/2 h-8 w-8 -translate-y-1/2"
-              aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
-            >
-              {showPassword ? (
-                <EyeOff className="h-4 w-4 text-muted-foreground" />
-              ) : (
-                <Eye className="h-4 w-4 text-muted-foreground" />
-              )}
-            </Button>
-          </div>
-        </div>
+    <div
+      className={`grid gap-4 ${
+        horizontal ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1"
+      }`}
+    >
+      {password !== undefined && (
+        <PasswordInput
+          id="password"
+          label="Senha"
+          placeholder="Digite a senha"
+          value={password}
+          onChange={(val) => onChange("password", val)}
+        />
       )}
 
-      {/* Confirmar senha */}
-      {"confirmPassword" in { confirmPassword } && (
-        <div className="space-y-2">
-          <Label htmlFor="confirmPassword">Confirmar senha</Label>
+      {confirmPassword !== undefined && (
+        <PasswordInput
+          id="confirmPassword"
+          label="Confirmar senha"
+          placeholder="Confirme a senha"
+          value={confirmPassword}
+          onChange={(val) => onChange("confirmPassword", val)}
+        />
+      )}
 
-          <div className="relative">
-            <Input
-              id="confirmPassword"
-              type={showConfirmPassword ? "text" : "password"}
-              placeholder="Confirme a senha"
-              value={confirmPassword}
-              onChange={(e) => onChange("confirmPassword", e.target.value)}
-              className="pr-10"
-            />
-
-            <Button
-              type="button"
-              variant="ghost"
-              size="icon"
-              onClick={() => setShowConfirmPassword((prev) => !prev)}
-              className="absolute right-1 top-1/2 h-8 w-8 -translate-y-1/2"
-              aria-label={
-                showConfirmPassword ? "Ocultar senha" : "Mostrar senha"
-              }
-            >
-              {showConfirmPassword ? (
-                <EyeOff className="h-4 w-4 text-muted-foreground" />
-              ) : (
-                <Eye className="h-4 w-4 text-muted-foreground" />
-              )}
-            </Button>
-          </div>
-        </div>
+      {showMismatchError && mismatch && (
+        <p className="text-sm text-red-600 col-span-full">
+          As senhas não coincidem.
+        </p>
       )}
     </div>
   );
