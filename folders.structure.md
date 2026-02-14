@@ -1,7 +1,10 @@
-```
+# Folder's Structure
+
+```markdown
 └── 📁mcs-white-label-front
     └── 📁public
         └── 📁demos
+            ├── wl.jpg
         └── 📁documents
         └── 📁favicons
             ├── sipremo.svg
@@ -24,6 +27,16 @@
                 └── 📁forms
                     └── 📁questions
                     └── 📁users
+                        └── 📁fields
+                            ├── PasswordFields.tsx
+                            ├── Responsibilities.tsx
+                        └── 📁inputs
+                            ├── AccountTypeSelect.tsx
+                            ├── EmailInput.tsx
+                            ├── FilterSelectInput.tsx
+                            ├── PasswordInput.tsx
+                            ├── PhoneInput.tsx
+                            ├── TextInput.tsx
                         └── 📁modal
                             ├── CreateExternalUserModal.tsx
                             ├── CreateInternalUserModal.tsx
@@ -33,9 +46,6 @@
                             ├── ExternalUsersTable.tsx
                             ├── users-columns.tsx
                             ├── UsersTable.tsx
-                        ├── PasswordFields.tsx
-                        ├── PhoneInput.tsx
-                        ├── Responsibilities.tsx
                 └── 📁graphs
                 └── 📁header
                     ├── Header.tsx
