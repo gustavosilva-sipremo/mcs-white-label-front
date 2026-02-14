@@ -1,6 +1,7 @@
 import { useContract } from "@/core/contracts/contract-provider";
-import { ThemeToggle } from "@/core/theme/theme-toggle";
 import { BrandingLogo } from "@/components/others/BrandingLogo";
+import { Toolbar } from "@/components/sections/header/Toolbar";
+import { Profile } from "@/components/sections/header/Profile";
 
 interface HeaderProps {
   onMenuClick?: () => void;
@@ -9,8 +10,14 @@ interface HeaderProps {
 export function Header({ onMenuClick }: HeaderProps) {
   const contract = useContract();
 
+  // Exemplo de usuário, você pode puxar do contract ou contexto
+  const user = {
+    name: "Gustavo Silva",
+    accountType: "Sipremo",
+  };
+
   return (
-    <header className="flex items-center w-full gap-4 px-6 py-4 border-b bg-background border-border">
+    <header className="flex items-center w-full gap-4 px-6 py-4 border-b bg-background border-border shadow-sm">
       {/* Menu hamburger */}
       <button
         type="button"
@@ -18,7 +25,6 @@ export function Header({ onMenuClick }: HeaderProps) {
         onClick={onMenuClick}
         className="flex items-center justify-center w-10 h-10 rounded-md hover:bg-muted transition-colors"
       >
-        {/* Ícone hamburger simples (sem lib) */}
         <span className="sr-only">Abrir menu</span>
         <div className="space-y-1">
           <span className="block h-0.5 w-5 bg-primary" />
@@ -34,7 +40,11 @@ export function Header({ onMenuClick }: HeaderProps) {
 
       <div className="flex-1" />
 
-      {contract.theme.allowToggle && <ThemeToggle />}
+      {/* Toolbar: idioma, mapa, tema */}
+      <Toolbar allowThemeToggle={contract.theme.allowToggle} />
+
+      {/* Profile */}
+      <Profile name={user.name} accountType={user.accountType} />
     </header>
   );
 }
