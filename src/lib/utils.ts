@@ -17,20 +17,38 @@ export function exportCSV<T extends Record<string, any>>(
   const headers = Object.keys(data[0]);
 
   const csvRows = [
-    headers.join(","),
+    headers.join(","), // cabeçalho
     ...data.map((row) =>
-      headers.map((field) => `"${String(row[field] ?? "")}"`).join(","),
+      headers
+        .map((field) => {
+          const value = row[field];
+
+          // Se for array de objetos com "name", transforma em string de nomes
+          if (
+            Array.isArray(value) &&
+            value.every((v) => v && typeof v === "object" && "name" in v)
+          ) {
+            return `"${value.map((v: any) => v.name).join(", ")}"`;
+          }
+
+          // Se for array simples de strings/números, junta com vírgula
+          if (Array.isArray(value)) {
+            return `"${value.join(", ")}"`;
+          }
+
+          // Valor normal
+          return `"${String(value ?? "")}"`;
+        })
+        .join(","),
     ),
   ];
 
   const csvContent = "data:text/csv;charset=utf-8," + csvRows.join("\n");
-
   const encodedUri = encodeURI(csvContent);
 
   const link = document.createElement("a");
   link.setAttribute("href", encodedUri);
   link.setAttribute("download", fileName);
-
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);

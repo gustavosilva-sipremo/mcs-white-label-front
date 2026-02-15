@@ -10,50 +10,52 @@ export interface TeamModel {
   updatedAt: string;
 }
 
+// Função auxiliar para criar equipes
+const createTeam = (
+  id: string,
+  name: string,
+  description: string,
+  sectorFilter?: string,
+): TeamModel => {
+  const members = sectorFilter
+    ? mockUsers.filter((u) => u.sector === sectorFilter)
+    : mockUsers;
+
+  return {
+    id,
+    name,
+    description,
+    members,
+    membersCount: members.length,
+    createdAt: new Date().toISOString().split("T")[0],
+    updatedAt: new Date().toISOString().split("T")[0],
+  };
+};
+
 export const mockTeams: TeamModel[] = [
-  {
-    id: "team-1",
-    name: "Tecnologia",
-    description: "Equipe responsável pelo desenvolvimento e infraestrutura",
-    members: mockUsers.filter((u) => u.sector === "Tecnologia"),
-    membersCount: mockUsers.filter((u) => u.sector === "Tecnologia").length,
-    createdAt: "2024-01-05",
-    updatedAt: "2024-02-10",
-  },
-  {
-    id: "team-2",
-    name: "Financeiro",
-    description: "Gestão financeira e controle orçamentário",
-    members: mockUsers.filter((u) => u.sector === "Financeiro"),
-    membersCount: mockUsers.filter((u) => u.sector === "Financeiro").length,
-    createdAt: "2024-01-15",
-    updatedAt: "2024-02-08",
-  },
-  {
-    id: "team-3",
-    name: "Marketing",
-    description: "Comunicação, marca e campanhas",
-    members: mockUsers.filter((u) => u.sector === "Marketing"),
-    membersCount: mockUsers.filter((u) => u.sector === "Marketing").length,
-    createdAt: "2024-01-20",
-    updatedAt: "2024-02-09",
-  },
-  {
-    id: "team-4",
-    name: "Recursos Humanos",
-    description: "Gestão de pessoas e cultura",
-    members: mockUsers.filter((u) => u.sector === "RH"),
-    membersCount: mockUsers.filter((u) => u.sector === "RH").length,
-    createdAt: "2024-01-18",
-    updatedAt: "2024-02-08",
-  },
-  {
-    id: "team-5",
-    name: "Operações",
-    description: "Processos operacionais e coordenação",
-    members: mockUsers.filter((u) => u.sector === "Operações"),
-    membersCount: mockUsers.filter((u) => u.sector === "Operações").length,
-    createdAt: "2024-01-22",
-    updatedAt: "2024-02-07",
-  },
+  createTeam(
+    "team-1",
+    "Tecnologia",
+    "Equipe responsável pelo desenvolvimento e infraestrutura",
+    "Tecnologia",
+  ),
+  createTeam(
+    "team-2",
+    "Financeiro",
+    "Gestão financeira e controle orçamentário",
+    "Financeiro",
+  ),
+  createTeam(
+    "team-3",
+    "Marketing",
+    "Comunicação, marca e campanhas",
+    "Marketing",
+  ),
+  createTeam("team-4", "Recursos Humanos", "Gestão de pessoas e cultura", "RH"),
+  createTeam(
+    "team-5",
+    "Operações",
+    "Processos operacionais e coordenação",
+    "Operações",
+  ),
 ];
