@@ -68,8 +68,8 @@ const sidebarCategories: SidebarCategory[] = [
     title: "Configurações",
     links: [
       {
-        label: "Formulários",
-        href: "/forms",
+        label: "Questionários",
+        href: "/questions",
         icon: <File className="w-5 h-5" />,
       },
       { label: "Testes", href: "/tests", icon: <Beaker className="w-5 h-5" /> },

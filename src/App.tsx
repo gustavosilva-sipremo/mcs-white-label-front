@@ -11,11 +11,11 @@ import { TermsRenderer } from "@/core/renders/pages/terms/TermsRenderer";
 import { LoginRenderer } from "@/core/renders/pages/login/LoginRenderer";
 import { ExternalUsersRenderer } from "@/core/renders/pages/users_extern/UsersExternRenderer";
 import { ReportRenderer } from "./core/renders/pages/report/ReportRenderer";
-
 import { PassEmailSendRenderer } from "@/core/renders/pages/reset_password/PassEmailSendRenderer";
 import { PassEmailCodeRenderer } from "@/core/renders/pages/reset_password/PassEmailCodeRenderer";
 import { PassResetRenderer } from "@/core/renders/pages/reset_password/PassResetRenderer";
 import { TeamsRenderer } from "./core/renders/pages/teams/TeamsRenderer";
+import { QuestionsRenderer } from "./core/renders/pages/questions/QuestionsRenderer";
 
 export default function App() {
   return (
@@ -26,18 +26,21 @@ export default function App() {
           {/* Rota Home */}
           <Route path="/" element={<HomeRenderer />} />
 
-          {/* Rota Maps */}
-          <Route path="/maps" element={<MapsRenderer />} />
-
-          {/* Rota Teams */}
-          <Route path="/teams" element={<TeamsRenderer />} />
-
           {/* Rotas Users */}
           <Route path="/users" element={<UsersRenderer />} />
           <Route path="/external-users" element={<ExternalUsersRenderer />} />
 
+          {/* Rota Teams */}
+          <Route path="/teams" element={<TeamsRenderer />} />
+
+          {/* Rota Questions */}
+          <Route path="/questions" element={<QuestionsRenderer />} />
+
           {/* Rota Reports */}
           <Route path="/reports" element={<ReportRenderer />} />
+
+          {/* Rota Maps */}
+          <Route path="/maps" element={<MapsRenderer />} />
         </Route>
 
         {/* Rotas Normal layout */}
