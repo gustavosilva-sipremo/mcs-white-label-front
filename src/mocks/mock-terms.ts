@@ -1,4 +1,4 @@
-import { Term } from "@/components/sections/Terms";
+import { Term } from "@/components/sections/terms/Terms";
 
 export const TERMS_MOCK: Term[] = [
   {
