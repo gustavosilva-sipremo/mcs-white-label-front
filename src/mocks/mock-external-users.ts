@@ -12,7 +12,7 @@ export interface UserModel {
   updatedAt: string;
 }
 
-export const mockUsers: UserModel[] = [
+export const mockExternalUsers: UserModel[] = [
   // Usuários comuns
   {
     id: "1",

@@ -1,7 +1,7 @@
 import { UsersSection } from "@/components/sections/users/UsersSection";
 import { ExternalUsersTable } from "@/components/sections/tables/ExternalUsersTable";
 import { CreateExternalUserModal } from "@/components/sections/forms/users/modal/CreateExternalUserModal";
-import { mockUsers } from "@/mocks/mock-external-users";
+import { mockExternalUsers } from "@/mocks/mock-external-users";
 import { exportCSV } from "@/lib/utils";
 
 export function ExternalUsersRenderer() {
@@ -11,8 +11,8 @@ export function ExternalUsersRenderer() {
       description="Gerencie os usuários externos, órgãos oficiais e áreas de trabalho."
       table={ExternalUsersTable}
       modal={CreateExternalUserModal}
-      mockData={mockUsers}
-      exportCSV={() => exportCSV(mockUsers, "usuarios_externos.csv")}
+      mockData={mockExternalUsers}
+      exportCSV={() => exportCSV(mockExternalUsers, "usuarios_externos.csv")}
     />
   );
 }
