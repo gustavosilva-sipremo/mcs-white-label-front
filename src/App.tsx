@@ -18,6 +18,7 @@ import { TeamsRenderer } from "@/core/renders/pages/teams/TeamsRenderer";
 import { QuestionsRenderer } from "@/core/renders/pages/questions/QuestionsRenderer";
 import { InformationBuilderRenderer } from "@/core/renders/pages/builders/informations/InformationBuilderRenderer";
 import { TriggerBuilderRenderer } from "@/core/renders/pages/builders/triggers/TriggerBuilderRenderer";
+import { FormBuilderRenderer } from "@/core/renders/pages/builders/forms/FormBuilderRenderer";
 
 export default function App() {
   return (
@@ -39,6 +40,7 @@ export default function App() {
           <Route path="/questions" element={<QuestionsRenderer />} />
           <Route path="/questions/builder/informations" element={<InformationBuilderRenderer />} />
           <Route path="/questions/builder/triggers" element={<TriggerBuilderRenderer />} />
+          <Route path="/questions/builder/forms" element={<FormBuilderRenderer />} />
 
           {/* Rota Reports */}
           <Route path="/reports" element={<ReportRenderer />} />
