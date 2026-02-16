@@ -38,13 +38,18 @@ function BuilderCard({
     title,
     description,
     icon: Icon,
+    href,
 }: {
     title: string;
     description: string;
     icon: any;
+    href: string;
 }) {
     return (
-        <div className="group relative flex flex-col justify-between rounded-2xl border bg-card p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md focus-within:ring-2 focus-within:ring-primary/40">
+        <a
+            href={href}
+            className="group relative flex flex-col justify-between rounded-2xl border bg-card p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary/40"
+        >
             <div className="flex items-start gap-4">
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition group-hover:bg-primary/20">
                     <Icon size={22} />
@@ -63,12 +68,12 @@ function BuilderCard({
 
             <Button
                 variant="secondary"
-                className="mt-5 w-full gap-2"
+                className="pointer-events-none mt-5 w-full gap-2"
             >
                 <Plus size={16} />
                 Abrir builder
             </Button>
-        </div>
+        </a>
     );
 }
 
@@ -153,18 +158,21 @@ export function QuestionsRenderer() {
                             title="Builder de Informações"
                             description="Crie listas estáticas reutilizáveis como setores, animais, categorias e mais."
                             icon={ListChecks}
+                            href="/questions/builder/information"
                         />
 
                         <BuilderCard
                             title="Builder de Acionamentos"
                             description="Defina regras de acionamento por setor, função, equipes ou usuários."
                             icon={Users}
+                            href="#"
                         />
 
                         <BuilderCard
                             title="Builder de Formulários"
                             description="Crie novos questionários e edite os formulários existentes."
                             icon={FileText}
+                            href="#"
                         />
                     </div>
                 </section>
