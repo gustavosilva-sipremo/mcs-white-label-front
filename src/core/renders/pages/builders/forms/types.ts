@@ -1,3 +1,8 @@
+export type TriggerLink = {
+  mode: "existing";
+  triggerId: string;
+};
+
 export type QuestionType =
   | "text"
   | "textarea"
@@ -24,4 +29,5 @@ export type Question = {
   required: boolean;
   options: string[];
   condition?: Condition;
+  trigger?: TriggerLink;
 };
