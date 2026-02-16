@@ -158,14 +158,14 @@ export function QuestionsRenderer() {
                             title="Builder de Informações"
                             description="Crie listas estáticas reutilizáveis como setores, animais, categorias e mais."
                             icon={ListChecks}
-                            href="/questions/builder/information"
+                            href="/questions/builder/informations"
                         />
 
                         <BuilderCard
                             title="Builder de Acionamentos"
                             description="Defina regras de acionamento por setor, função, equipes ou usuários."
                             icon={Users}
-                            href="#"
+                            href="/questions/builder/triggers"
                         />
 
                         <BuilderCard

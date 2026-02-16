@@ -16,7 +16,8 @@ import { PassEmailCodeRenderer } from "@/core/renders/pages/reset_password/PassE
 import { PassResetRenderer } from "@/core/renders/pages/reset_password/PassResetRenderer";
 import { TeamsRenderer } from "@/core/renders/pages/teams/TeamsRenderer";
 import { QuestionsRenderer } from "@/core/renders/pages/questions/QuestionsRenderer";
-import { InformationBuilderRenderer } from "@/core/renders/pages/builders/information/InformationBuilderRenderer";
+import { InformationBuilderRenderer } from "@/core/renders/pages/builders/informations/InformationBuilderRenderer";
+import { TriggerBuilderRenderer } from "@/core/renders/pages/builders/triggers/TriggerBuilderRenderer";
 
 export default function App() {
   return (
@@ -36,7 +37,8 @@ export default function App() {
 
           {/* Rota Questions */}
           <Route path="/questions" element={<QuestionsRenderer />} />
-          <Route path="/questions/builder/information" element={<InformationBuilderRenderer />} />
+          <Route path="/questions/builder/informations" element={<InformationBuilderRenderer />} />
+          <Route path="/questions/builder/triggers" element={<TriggerBuilderRenderer />} />
 
           {/* Rota Reports */}
           <Route path="/reports" element={<ReportRenderer />} />
