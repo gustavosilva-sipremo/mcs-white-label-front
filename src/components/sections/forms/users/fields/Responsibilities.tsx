@@ -15,6 +15,7 @@ const SECTORS = [
   "Vendas",
   "Suporte",
   "Logística",
+  "Outro",
 ];
 const FUNCTIONS = [
   "Desenvolvedor Frontend",
@@ -25,6 +26,7 @@ const FUNCTIONS = [
   "Estagiário",
   "Designer",
   "Product Owner",
+  "Outro",
 ];
 
 export function Responsibilities({
