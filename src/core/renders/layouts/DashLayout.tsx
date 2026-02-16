@@ -9,14 +9,17 @@ import { Footer } from "@/components/sections/footer/Footer";
 
 import {
   Home,
-  FileText,
   Users,
   UserCheck,
-  UserPlus,
-  File,
-  Beaker,
-  LogIn,
   LogOut,
+  MessageCircleMore,
+  FlaskConical,
+  UserLock,
+  ChartLine,
+  FileText,
+  Building2,
+  Blocks,
+  ClipboardPen,
 } from "lucide-react";
 
 // --- Tipos ---
@@ -36,12 +39,7 @@ const sidebarCategories: SidebarCategory[] = [
   {
     title: "Geral",
     links: [
-      { label: "Home", href: "/", icon: <Home className="w-5 h-5" /> },
-      {
-        label: "Relatórios",
-        href: "/reports",
-        icon: <FileText className="w-5 h-5" />,
-      },
+      { label: "Página Inicial", href: "/", icon: <Home className="w-5 h-5" /> },
     ],
   },
   {
@@ -55,7 +53,7 @@ const sidebarCategories: SidebarCategory[] = [
       {
         label: "Usuários Externos",
         href: "/external-users",
-        icon: <UserPlus className="w-5 h-5" />,
+        icon: <UserLock className="w-5 h-5" />,
       },
       {
         label: "Equipes",
@@ -70,16 +68,50 @@ const sidebarCategories: SidebarCategory[] = [
       {
         label: "Questionários",
         href: "/questions",
-        icon: <File className="w-5 h-5" />,
+        icon: <ClipboardPen className="w-5 h-5" />,
       },
-      { label: "Testes", href: "/tests", icon: <Beaker className="w-5 h-5" /> },
+      {
+        label: "Mensagens",
+        href: "/messages",
+        icon: <MessageCircleMore className="w-5 h-5" />,
+      },
+      { label: "Testes", href: "/tests", icon: <FlaskConical className="w-5 h-5" /> },
+    ],
+  },
+  {
+    title: "Informações",
+    links: [
+      {
+        label: "Relatórios",
+        href: "/reports",
+        icon: <ChartLine className="w-5 h-5" />,
+      },
+      {
+        label: "Documentos",
+        href: "/documents",
+        icon: <FileText className="w-5 h-5" />,
+      },
+    ],
+  },
+  {
+    title: "Sipremo",
+    links: [
+      {
+        label: "Empresas",
+        href: "/companies",
+        icon: <Building2 className="w-5 h-5" />,
+      },
+      {
+        label: "Contratos",
+        href: "/contracts",
+        icon: <Blocks className="w-5 h-5" />,
+      },
     ],
   },
   {
     title: "Acesso",
     links: [
-      { label: "Login", href: "/login", icon: <LogIn className="w-5 h-5" /> },
-      { label: "Sair", href: "/logout", icon: <LogOut className="w-5 h-5" /> },
+      { label: "Sair", href: "/logout", icon: <LogOut className="w-5 h-5 text-red-500" /> },
     ],
   },
 ];

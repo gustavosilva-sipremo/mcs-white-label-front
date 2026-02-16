@@ -19,6 +19,7 @@ import { QuestionsRenderer } from "@/core/renders/pages/questions/QuestionsRende
 import { InformationBuilderRenderer } from "@/core/renders/pages/builders/informations/InformationBuilderRenderer";
 import { TriggerBuilderRenderer } from "@/core/renders/pages/builders/triggers/TriggerBuilderRenderer";
 import { FormBuilderRenderer } from "@/core/renders/pages/builders/forms/FormBuilderRenderer";
+import { TestsRenderer } from "@/core/renders/pages/tests/TestsRenderer";
 
 export default function App() {
   return (
@@ -36,11 +37,14 @@ export default function App() {
           {/* Rota Teams */}
           <Route path="/teams" element={<TeamsRenderer />} />
 
-          {/* Rota Questions */}
+          {/* Rotas Questions */}
           <Route path="/questions" element={<QuestionsRenderer />} />
           <Route path="/questions/builder/informations" element={<InformationBuilderRenderer />} />
           <Route path="/questions/builder/triggers" element={<TriggerBuilderRenderer />} />
           <Route path="/questions/builder/forms" element={<FormBuilderRenderer />} />
+
+          {/* Rotas de Teste */}
+          <Route path="/tests" element={<TestsRenderer />} />
 
           {/* Rota Reports */}
           <Route path="/reports" element={<ReportRenderer />} />
