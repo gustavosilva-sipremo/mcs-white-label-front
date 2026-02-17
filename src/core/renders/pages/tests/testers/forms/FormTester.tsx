@@ -1,23 +1,20 @@
 import { useMemo, useState, useEffect, useCallback } from "react";
-import { X } from "lucide-react";
 import { BackgroundPattern } from "@/components/others/BackgroundPattern";
 import { MOCK_FORMS } from "./mockForms";
 import { FormList } from "./FormList";
-import { QuestionStep } from "./QuestionStep";
 import { Question, QuestionForm } from "@/core/renders/pages/builders/forms/types";
+import { InlineForm } from "./InlineForm";
 
 export function FormTester() {
     const [selectedForm, setSelectedForm] = useState<QuestionForm | null>(null);
     const [answers, setAnswers] = useState<Record<string, any>>({});
-    const [currentStep, setCurrentStep] = useState(0);
 
-    /* -------------------- Reset quando troca de formulário -------------------- */
+    /* Reset quando troca de formulário */
     useEffect(() => {
         setAnswers({});
-        setCurrentStep(0);
     }, [selectedForm]);
 
-    /* -------------------- Perguntas visíveis considerando condições -------------------- */
+    /* Perguntas visíveis considerando condições */
     const visibleQuestions: Question[] = useMemo(() => {
         if (!selectedForm) return [];
         return selectedForm.questions.filter((q) => {
@@ -38,25 +35,8 @@ export function FormTester() {
         });
     }, [answers, selectedForm]);
 
-    /* -------------------- Funções de atualização -------------------- */
     const setAnswer = useCallback((id: string, value: any) => {
         setAnswers((prev) => ({ ...prev, [id]: value }));
-    }, []);
-
-    const handleNext = useCallback(() => {
-        if (currentStep < visibleQuestions.length - 1) {
-            setCurrentStep((prev) => prev + 1);
-        } else {
-            if (window.confirm("Tem certeza que deseja enviar o formulário?")) {
-                console.log("FORM ANSWERS:", answers);
-                alert("Formulário enviado com sucesso 🚀");
-                setSelectedForm(null);
-            }
-        }
-    }, [currentStep, visibleQuestions.length, answers]);
-
-    const handlePrev = useCallback(() => {
-        setCurrentStep((prev) => Math.max(prev - 1, 0));
     }, []);
 
     return (
@@ -77,54 +57,13 @@ export function FormTester() {
 
                 {/* Formulário inline */}
                 {selectedForm && visibleQuestions.length > 0 && (
-                    <div className="rounded-2xl border bg-card p-6 shadow-sm space-y-6 relative">
-                        {/* Topo do formulário: título + botão fechar */}
-                        <div className="flex justify-between items-start">
-                            <div>
-                                <h2 className="text-lg font-semibold">{selectedForm.name}</h2>
-                                <p className="text-sm text-muted-foreground">{selectedForm.description}</p>
-                            </div>
-
-                            {/* Botão de fechar com ícone X */}
-                            <button
-                                onClick={() => setSelectedForm(null)}
-                                className="p-2 rounded-full hover:bg-muted text-destructive"
-                                aria-label="Fechar formulário"
-                            >
-                                <X size={20} />
-                            </button>
-                        </div>
-
-                        {/* Pergunta atual */}
-                        {visibleQuestions[currentStep] && (
-                            <QuestionStep
-                                question={visibleQuestions[currentStep]}
-                                value={answers[visibleQuestions[currentStep].id]}
-                                setAnswer={setAnswer}
-                                index={currentStep}
-                                total={visibleQuestions.length}
-                            />
-                        )}
-
-                        {/* Navegação */}
-                        <div className="flex justify-between gap-2 mt-4 flex-wrap sm:flex-nowrap">
-                            <button
-                                className="flex-1 rounded-md border border-border px-4 py-2 text-sm hover:bg-muted disabled:opacity-50"
-                                onClick={handlePrev}
-                                disabled={currentStep === 0}
-                            >
-                                Voltar
-                            </button>
-
-                            <button
-                                className="flex-1 flex items-center justify-center gap-1 rounded-md bg-primary px-4 py-2 text-sm text-white hover:bg-primary/90 disabled:opacity-50"
-                                onClick={handleNext}
-                            >
-                                {currentStep === visibleQuestions.length - 1 ? "Enviar" : "Próximo"}
-                                <span className="ml-1">→</span>
-                            </button>
-                        </div>
-                    </div>
+                    <InlineForm
+                        form={selectedForm}
+                        visibleQuestions={visibleQuestions}
+                        answers={answers}
+                        setAnswer={setAnswer}
+                        onClose={() => setSelectedForm(null)}
+                    />
                 )}
             </div>
         </div>
