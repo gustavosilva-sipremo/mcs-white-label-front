@@ -4,24 +4,57 @@ import { MOCK_FORMS } from "./mockForms";
 import { FormList } from "./FormList";
 import { Question, QuestionForm } from "@/core/renders/pages/builders/forms/types";
 import { InlineForm } from "./InlineForm";
+import { DrawerForm } from "./DrawerForm";
+
+export function isQuestionAnswered(question: Question, value: any) {
+    if (!question.required) return true;
+
+    switch (question.type) {
+        case "text":
+        case "email":
+        case "number":
+        case "phone":
+        case "date":
+        case "textarea":
+            return value !== undefined && value !== null && value.toString().trim() !== "";
+        case "boolean":
+            return value === true || value === false; // switch sempre retorna boolean
+        case "single":
+        case "scale":
+            return value !== undefined && value !== null && value !== "";
+        case "multiple":
+            return Array.isArray(value) && value.length > 0;
+        default:
+            return true;
+    }
+}
+
 
 export function FormTester() {
     const [selectedForm, setSelectedForm] = useState<QuestionForm | null>(null);
     const [answers, setAnswers] = useState<Record<string, any>>({});
+    const [isMobile, setIsMobile] = useState<boolean>(false);
 
-    /* Reset quando troca de formulário */
+    /* -------------------- Detecta mobile -------------------- */
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth < 640);
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    /* -------------------- Reset quando troca de formulário -------------------- */
     useEffect(() => {
         setAnswers({});
     }, [selectedForm]);
 
-    /* Perguntas visíveis considerando condições */
+    /* -------------------- Perguntas visíveis considerando condições -------------------- */
     const visibleQuestions: Question[] = useMemo(() => {
         if (!selectedForm) return [];
         return selectedForm.questions.filter((q) => {
             if (!q.condition) return true;
 
             const parentValue = answers[q.condition.dependsOnQuestionId];
-
             switch (q.condition.operator) {
                 case "equals":
                     return parentValue === q.condition.value;
@@ -39,6 +72,8 @@ export function FormTester() {
         setAnswers((prev) => ({ ...prev, [id]: value }));
     }, []);
 
+    const handleClose = useCallback(() => setSelectedForm(null), []);
+
     return (
         <div className="relative w-full px-4 pb-24 pt-6 sm:px-6 lg:px-8">
             <BackgroundPattern opacity={0.06} size={64} />
@@ -55,16 +90,26 @@ export function FormTester() {
                 {/* Lista de formulários */}
                 {!selectedForm && <FormList forms={MOCK_FORMS} onSelect={setSelectedForm} />}
 
-                {/* Formulário inline */}
-                {selectedForm && visibleQuestions.length > 0 && (
-                    <InlineForm
-                        form={selectedForm}
-                        visibleQuestions={visibleQuestions}
-                        answers={answers}
-                        setAnswer={setAnswer}
-                        onClose={() => setSelectedForm(null)}
-                    />
-                )}
+                {/* Formulário */}
+                {selectedForm && visibleQuestions.length > 0 &&
+                    (isMobile ? (
+                        <DrawerForm
+                            form={selectedForm}
+                            visibleQuestions={visibleQuestions}
+                            answers={answers}
+                            setAnswer={setAnswer}
+                            onClose={handleClose}
+                        />
+                    ) : (
+                        <InlineForm
+                            form={selectedForm}
+                            visibleQuestions={visibleQuestions}
+                            answers={answers}
+                            setAnswer={setAnswer}
+                            onClose={handleClose}
+                        />
+                    ))
+                }
             </div>
         </div>
     );

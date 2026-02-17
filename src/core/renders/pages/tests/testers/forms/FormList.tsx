@@ -21,11 +21,6 @@ export function FormList({ forms, onSelect }: FormListProps) {
                     <span className="inline-block mt-3 rounded-md bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
                         {form.questions.length} {form.questions.length === 1 ? "pergunta" : "perguntas"}
                     </span>
-
-                    {/* Adiciona ícone de seta ou efeito de hover opcional */}
-                    <span className="absolute top-5 right-5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity">
-                        ➔
-                    </span>
                 </button>
             ))}
         </div>

@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { X } from "lucide-react";
 import { QuestionStep } from "./QuestionStep";
 import { Question, QuestionForm } from "@/core/renders/pages/builders/forms/types";
+import { isQuestionAnswered } from "./FormTester";
 
 interface InlineFormProps {
     form: QuestionForm;
@@ -15,6 +16,14 @@ export function InlineForm({ form, visibleQuestions, answers, setAnswer, onClose
     const [currentStep, setCurrentStep] = useState(0);
 
     const handleNext = useCallback(() => {
+        const currentQuestion = visibleQuestions[currentStep];
+        const answered = isQuestionAnswered(currentQuestion, answers[currentQuestion.id]);
+
+        if (!answered) {
+            alert("Por favor, responda a pergunta obrigatória antes de continuar.");
+            return;
+        }
+
         if (currentStep < visibleQuestions.length - 1) {
             setCurrentStep((prev) => prev + 1);
         } else {
@@ -24,7 +33,8 @@ export function InlineForm({ form, visibleQuestions, answers, setAnswer, onClose
                 onClose();
             }
         }
-    }, [currentStep, visibleQuestions.length, answers, onClose]);
+    }, [currentStep, visibleQuestions, answers, onClose]);
+
 
     const handlePrev = useCallback(() => {
         setCurrentStep((prev) => Math.max(prev - 1, 0));
@@ -74,7 +84,7 @@ export function InlineForm({ form, visibleQuestions, answers, setAnswer, onClose
                 </button>
 
                 <button
-                    className="flex-1 flex items-center justify-center gap-1 rounded-md bg-primary px-4 py-2 text-sm text-white hover:bg-primary/90 disabled:opacity-50"
+                    className="flex-1 flex items-center justify-center gap-1 rounded-md bg-primary px-4 py-2 text-sm text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
                     onClick={handleNext}
                 >
                     {currentStep === visibleQuestions.length - 1 ? "Enviar" : "Próximo"}
