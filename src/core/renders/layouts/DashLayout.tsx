@@ -20,6 +20,7 @@ import {
   Building2,
   Blocks,
   ClipboardPen,
+  Workflow,
 } from "lucide-react";
 
 // --- Tipos ---
@@ -74,6 +75,11 @@ const sidebarCategories: SidebarCategory[] = [
         label: "Mensagens",
         href: "/messages",
         icon: <MessageCircleMore className="w-5 h-5" />,
+      },
+      {
+        label: "Fluxos",
+        href: "/flows",
+        icon: <Workflow className="w-5 h-5" />,
       },
       { label: "Testes", href: "/tests", icon: <FlaskConical className="w-5 h-5" /> },
     ],

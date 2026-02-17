@@ -1,7 +1,6 @@
 /* -------------------------------------------------------------------------- */
 /*                                   TRIGGER                                  */
 /* -------------------------------------------------------------------------- */
-
 export type TriggerLink = {
   mode: "existing";
   triggerId: string;
@@ -10,7 +9,6 @@ export type TriggerLink = {
 /* -------------------------------------------------------------------------- */
 /*                               QUESTION TYPE                                */
 /* -------------------------------------------------------------------------- */
-
 export type QuestionType =
   | "text"
   | "textarea"
@@ -27,23 +25,20 @@ export type QuestionType =
 /* -------------------------------------------------------------------------- */
 /*                              QUESTION LOGIC                                */
 /* -------------------------------------------------------------------------- */
-
 export type Condition = {
   dependsOnQuestionId: string;
   operator: "equals" | "not_equals" | "includes";
-  value: string;
+  value: string | boolean;
 };
 
 /* -------------------------------------------------------------------------- */
 /*                              OPTIONS SOURCE                                */
 /* -------------------------------------------------------------------------- */
-
 export type OptionsMode = "manual" | "list";
 
 /* -------------------------------------------------------------------------- */
 /*                                  QUESTION                                  */
 /* -------------------------------------------------------------------------- */
-
 export type Question = {
   id: string;
   title: string;
@@ -64,4 +59,14 @@ export type Question = {
 
   /** Acionamento ao responder */
   trigger?: TriggerLink;
+};
+
+/* -------------------------------------------------------------------------- */
+/*                                   FORM                                     */
+/* -------------------------------------------------------------------------- */
+export type QuestionForm = {
+  id: string;
+  name: string;
+  description: string;
+  questions: Question[];
 };

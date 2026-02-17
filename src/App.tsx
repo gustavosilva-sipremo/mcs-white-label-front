@@ -10,7 +10,7 @@ import { UsersRenderer } from "@/core/renders/pages/users/UsersRenderer";
 import { TermsRenderer } from "@/core/renders/pages/terms/TermsRenderer";
 import { LoginRenderer } from "@/core/renders/pages/login/LoginRenderer";
 import { ExternalUsersRenderer } from "@/core/renders/pages/users_extern/UsersExternRenderer";
-import { ReportRenderer } from "./core/renders/pages/report/ReportRenderer";
+import { ReportRenderer } from "@/core/renders/pages/report/ReportRenderer";
 import { PassEmailSendRenderer } from "@/core/renders/pages/reset_password/PassEmailSendRenderer";
 import { PassEmailCodeRenderer } from "@/core/renders/pages/reset_password/PassEmailCodeRenderer";
 import { PassResetRenderer } from "@/core/renders/pages/reset_password/PassResetRenderer";
@@ -20,6 +20,7 @@ import { InformationBuilderRenderer } from "@/core/renders/pages/builders/inform
 import { TriggerBuilderRenderer } from "@/core/renders/pages/builders/triggers/TriggerBuilderRenderer";
 import { FormBuilderRenderer } from "@/core/renders/pages/builders/forms/FormBuilderRenderer";
 import { TestsRenderer } from "@/core/renders/pages/tests/TestsRenderer";
+import { FormTester } from "@/core/renders/pages/tests/testers/forms/FormTester";
 
 export default function App() {
   return (
@@ -45,6 +46,7 @@ export default function App() {
 
           {/* Rotas de Teste */}
           <Route path="/tests" element={<TestsRenderer />} />
+          <Route path="/tests/forms" element={<FormTester />} />
 
           {/* Rota Reports */}
           <Route path="/reports" element={<ReportRenderer />} />
