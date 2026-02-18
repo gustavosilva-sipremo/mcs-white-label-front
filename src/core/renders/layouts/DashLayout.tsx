@@ -16,7 +16,6 @@ import {
   FlaskConical,
   UserLock,
   ChartLine,
-  FileText,
   Building2,
   Blocks,
   ClipboardPen,
@@ -40,7 +39,7 @@ const sidebarCategories: SidebarCategory[] = [
   {
     title: "Geral",
     links: [
-      { label: "Página Inicial", href: "/", icon: <Home className="w-5 h-5 text-primary" /> },
+      { label: "Página Inicial", href: "/", icon: <Home className="w-5 h-5 text-primary-foreground" /> },
     ],
   },
   {
@@ -91,11 +90,6 @@ const sidebarCategories: SidebarCategory[] = [
         label: "Relatórios",
         href: "/reports",
         icon: <ChartLine className="w-5 h-5" />,
-      },
-      {
-        label: "Documentos",
-        href: "/documents",
-        icon: <FileText className="w-5 h-5" />,
       },
     ],
   },
