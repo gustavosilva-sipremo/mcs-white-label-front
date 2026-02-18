@@ -35,3 +35,6 @@ coverage
 # Variáveis de Ambiente (Segurança Crítica)
 .env
 *.env.local
+
+# Outros
+ToDo.txt
