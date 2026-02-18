@@ -15,6 +15,7 @@ import {
   MessageCircleMore,
   FlaskConical,
   UserLock,
+  KeyRound,
   ChartLine,
   Building2,
   Blocks,
@@ -39,7 +40,7 @@ const sidebarCategories: SidebarCategory[] = [
   {
     title: "Geral",
     links: [
-      { label: "Página Inicial", href: "/", icon: <Home className="w-5 h-5 text-primary-foreground" /> },
+      { label: "Página Inicial", href: "/", icon: <Home className="w-5 h-5" /> },
     ],
   },
   {
@@ -63,34 +64,14 @@ const sidebarCategories: SidebarCategory[] = [
     ],
   },
   {
-    title: "Configurações",
-    links: [
-      {
-        label: "Questionários",
-        href: "/questions",
-        icon: <ClipboardPen className="w-5 h-5" />,
-      },
-      {
-        label: "Mensagens",
-        href: "/messages",
-        icon: <MessageCircleMore className="w-5 h-5" />,
-      },
-      {
-        label: "Fluxos",
-        href: "/flows",
-        icon: <Workflow className="w-5 h-5" />,
-      },
-      { label: "Testes", href: "/tests", icon: <FlaskConical className="w-5 h-5" /> },
-    ],
-  },
-  {
-    title: "Informações",
+    title: "Informações e Recursos",
     links: [
       {
         label: "Relatórios",
         href: "/reports",
         icon: <ChartLine className="w-5 h-5" />,
       },
+      { label: "Testes", href: "/tests", icon: <FlaskConical className="w-5 h-5" /> },
     ],
   },
   {
@@ -105,6 +86,26 @@ const sidebarCategories: SidebarCategory[] = [
         label: "Contratos",
         href: "/contracts",
         icon: <Blocks className="w-5 h-5" />,
+      },
+      {
+        label: "Questionários",
+        href: "/questions",
+        icon: <ClipboardPen className="w-5 h-5" />,
+      },
+      {
+        label: "Mensagens",
+        href: "/messages",
+        icon: <MessageCircleMore className="w-5 h-5" />,
+      },
+      {
+        label: "Autorizações",
+        href: "/authorizations",
+        icon: <KeyRound className="w-5 h-5" />,
+      },
+      {
+        label: "Fluxos",
+        href: "/flows",
+        icon: <Workflow className="w-5 h-5" />,
       },
     ],
   },

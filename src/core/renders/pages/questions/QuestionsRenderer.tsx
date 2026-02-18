@@ -210,11 +210,6 @@ export function QuestionsRenderer() {
                         <h2 className="text-lg font-semibold sm:text-xl">
                             Formulários Criados
                         </h2>
-
-                        <Button size="sm" className="gap-2">
-                            <Plus size={16} />
-                            Novo formulário
-                        </Button>
                     </div>
 
                     {forms.length === 0 ? (

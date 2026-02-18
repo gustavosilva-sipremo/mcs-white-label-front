@@ -64,10 +64,10 @@ export function Toolbar({
                 </DropdownMenuTrigger>
 
                 <DropdownMenuContent align="end">
-                    <DropdownMenuItem onClick={() => setLang("pt-BR")}>
+                    <DropdownMenuItem className="cursor-pointer" onClick={() => setLang("pt-BR")}>
                         🇧🇷 pt-BR
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setLang("en-US")}>
+                    <DropdownMenuItem className="cursor-pointer" onClick={() => setLang("en-US")}>
                         🇺🇸 en-US
                     </DropdownMenuItem>
                 </DropdownMenuContent>

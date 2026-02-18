@@ -17,12 +17,12 @@ export function BackgroundPattern({
         backgroundImage: `
           linear-gradient(
             to right,
-            hsl(var(--foreground) / 0.1) 2px,
+            hsl(var(--foreground) / 0.2) 2px,
             transparent 1px
           ),
           linear-gradient(
             to bottom,
-            hsl(var(--foreground) / 0.1) 2px,
+            hsl(var(--foreground) / 0.2) 2px,
             transparent 1px
           )
         `,

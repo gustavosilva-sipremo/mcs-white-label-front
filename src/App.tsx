@@ -21,6 +21,7 @@ import { TriggerBuilderRenderer } from "@/core/renders/pages/builders/triggers/T
 import { FormBuilderRenderer } from "@/core/renders/pages/builders/forms/FormBuilderRenderer";
 import { TestsRenderer } from "@/core/renders/pages/tests/TestsRenderer";
 import { FormTester } from "@/core/renders/pages/tests/testers/forms/FormTester";
+import { MessagesRenderer } from "@/core/renders/pages/messages/MessagesRenderer";
 
 export default function App() {
   return (
@@ -43,6 +44,9 @@ export default function App() {
           <Route path="/questions/builder/informations" element={<InformationBuilderRenderer />} />
           <Route path="/questions/builder/triggers" element={<TriggerBuilderRenderer />} />
           <Route path="/questions/builder/forms" element={<FormBuilderRenderer />} />
+
+          {/* Rota de Mensagens */}
+          <Route path="/messages" element={<MessagesRenderer />} />
 
           {/* Rotas de Teste */}
           <Route path="/tests" element={<TestsRenderer />} />

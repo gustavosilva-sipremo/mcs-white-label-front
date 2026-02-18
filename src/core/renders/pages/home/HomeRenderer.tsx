@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useContract } from "@/core/contracts/contract-provider";
 import { Trash2, PlusCircle, Clock, CheckCircle } from "lucide-react";
+import { BackgroundPattern } from "@/components/others/BackgroundPattern";
 
 interface Occurrence {
   id: number;
@@ -114,18 +115,8 @@ export function HomeRenderer() {
 
   return (
     <section className="relative flex flex-1 flex-col px-4 py-6 sm:px-6 md:px-10 overflow-hidden">
-      {/* Pattern elegante de background */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-10"
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, hsl(var(--foreground)/0.1) 2px, transparent 1px),
-            linear-gradient(to bottom, hsl(var(--foreground)/0.1) 2px, transparent 1px)
-          `,
-          backgroundSize: "64px 64px",
-        }}
-      />
+      {/* Background pattern */}
+      <BackgroundPattern opacity={0.1} size={64} />
 
       {/* Cabeçalho */}
       <div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
@@ -214,11 +205,10 @@ export function HomeRenderer() {
               <div className="flex justify-between items-center mb-2">
                 <h2 className="text-lg font-semibold">{occ.name}</h2>
                 <span
-                  className={`text-xs font-medium px-2 py-1 rounded-full flex items-center gap-1 ${
-                    occ.status === "Ativa"
-                      ? "bg-green-100 text-green-800"
-                      : "bg-gray-100 text-gray-700"
-                  }`}
+                  className={`text-xs font-medium px-2 py-1 rounded-full flex items-center gap-1 ${occ.status === "Ativa"
+                    ? "bg-green-100 text-green-800"
+                    : "bg-gray-100 text-gray-700"
+                    }`}
                 >
                   {occ.status === "Ativa" ? (
                     <CheckCircle className="w-3 h-3" />
