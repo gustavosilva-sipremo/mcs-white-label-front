@@ -22,6 +22,10 @@ import { FormBuilderRenderer } from "@/core/renders/pages/builders/forms/FormBui
 import { TestsRenderer } from "@/core/renders/pages/tests/TestsRenderer";
 import { FormTester } from "@/core/renders/pages/tests/testers/forms/FormTester";
 import { MessagesRenderer } from "@/core/renders/pages/messages/MessagesRenderer";
+import { AuthorizationRenderer } from "@/core/renders/pages/authorization/AuthorizationRenderer";
+import { FlowRenderer } from "./core/renders/pages/flow/FlowRenderer";
+import { CompaniesRenderer } from "./core/renders/pages/companies/CompaniesRenderer";
+import { ContractsRenderer } from "./core/renders/pages/contracts/ContractsRenderer";
 
 export default function App() {
   return (
@@ -47,6 +51,18 @@ export default function App() {
 
           {/* Rota de Mensagens */}
           <Route path="/messages" element={<MessagesRenderer />} />
+
+          {/* Rota de Autorizações */}
+          <Route path="/authorizations" element={<AuthorizationRenderer />} />
+
+          {/* Rota de Fluxos */}
+          <Route path="/flows" element={<FlowRenderer />} />
+
+          {/* Rota de Empresas */}
+          <Route path="/companies" element={<CompaniesRenderer />} />
+
+          {/* Rota de Contratos */}
+          <Route path="/contracts" element={<ContractsRenderer />} />
 
           {/* Rotas de Teste */}
           <Route path="/tests" element={<TestsRenderer />} />
