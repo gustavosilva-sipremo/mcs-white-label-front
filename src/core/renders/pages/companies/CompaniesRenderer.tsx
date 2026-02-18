@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { Plus, Pencil, Trash2, Eye } from "lucide-react";
 
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { BackgroundPattern } from "@/components/others/BackgroundPattern";
 
 import { CompanyDetailsModal } from "./modal";
@@ -43,14 +45,21 @@ export function CompaniesRenderer() {
 
 function PageHeader() {
     return (
-        <header className="text-center space-y-2">
-            <h1 className="text-2xl font-bold sm:text-3xl">
-                Empresas
-            </h1>
+        <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="text-center sm:text-left space-y-1.5">
+                <h1 className="text-2xl font-bold sm:text-3xl">
+                    Empresas
+                </h1>
 
-            <p className="mx-auto max-w-xl text-sm text-muted-foreground sm:text-base">
-                Visão geral de uso, custos e estrutura das empresas cadastradas
-            </p>
+                <p className="max-w-xl text-sm text-muted-foreground sm:text-base">
+                    Visão geral de uso, custos e estrutura das empresas cadastradas
+                </p>
+            </div>
+
+            <Button type="button" className="gap-2">
+                <Plus className="h-4 w-4" />
+                Nova empresa
+            </Button>
         </header>
     );
 }
@@ -66,18 +75,12 @@ interface CompaniesGridProps {
 
 function CompaniesGrid({ companies, onSelect }: CompaniesGridProps) {
     return (
-        <section
-            className="
-                grid gap-4
-                sm:grid-cols-2
-                lg:grid-cols-3
-            "
-        >
+        <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {companies.map((company) => (
                 <CompanyCard
                     key={company.id}
                     company={company}
-                    onClick={() => onSelect(company)}
+                    onView={() => onSelect(company)}
                 />
             ))}
         </section>
@@ -90,28 +93,20 @@ function CompaniesGrid({ companies, onSelect }: CompaniesGridProps) {
 
 interface CompanyCardProps {
     company: Company;
-    onClick: () => void;
+    onView: () => void;
 }
 
-function CompanyCard({ company, onClick }: CompanyCardProps) {
+function CompanyCard({ company, onView }: CompanyCardProps) {
     return (
         <Card
-            onClick={onClick}
-            role="button"
-            tabIndex={0}
             className="
                 group relative
-                cursor-pointer
                 rounded-xl
                 border
                 p-4
                 transition-all
                 hover:shadow-lg
                 hover:border-primary/50
-                active:scale-[0.98]
-                focus-visible:outline-none
-                focus-visible:ring-2
-                focus-visible:ring-primary
                 sm:p-5
             "
         >
@@ -131,32 +126,45 @@ function CompanyCard({ company, onClick }: CompanyCardProps) {
             </div>
 
             {/* Metrics */}
-            <div
-                className="
-                    mt-4 grid grid-cols-3 gap-3
-                    text-center
-                    sm:mt-5
-                "
-            >
-                <Metric
-                    label="Formulários"
-                    value={company.metrics.forms}
-                />
-
-                <Metric
-                    label="Mensagens"
-                    value={company.metrics.messages}
-                />
-
+            <div className="mt-4 grid grid-cols-3 gap-3 text-center sm:mt-5">
+                <Metric label="Formulários" value={company.metrics.forms} />
+                <Metric label="Mensagens" value={company.metrics.messages} />
                 <Metric
                     label="Usuários"
                     value={company.metrics.users + company.metrics.externalUsers}
                 />
             </div>
 
-            {/* Footer hint */}
-            <div className="mt-4 text-center text-xs text-muted-foreground opacity-70 sm:mt-5">
-                Toque para ver detalhes
+            {/* Actions */}
+            <div className="mt-4 flex items-center justify-between gap-2 sm:mt-5">
+                <Button
+                    size="sm"
+                    className="gap-1"
+                    onClick={onView}
+                >
+                    <Eye className="h-4 w-4" />
+                    Ver detalhes
+                </Button>
+
+                <div className="flex gap-1">
+                    <Button
+                        size="icon"
+                        variant="ghost"
+                        onClick={(e) => e.stopPropagation()}
+                        aria-label="Editar empresa"
+                    >
+                        <Pencil className="h-4 w-4" />
+                    </Button>
+
+                    <Button
+                        size="icon"
+                        variant="ghost"
+                        onClick={(e) => e.stopPropagation()}
+                        aria-label="Excluir empresa"
+                    >
+                        <Trash2 className="h-4 w-4 text-destructive" />
+                    </Button>
+                </div>
             </div>
         </Card>
     );

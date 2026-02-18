@@ -6,6 +6,7 @@
         └── 📁demos
             ├── wl.jpg
         └── 📁documents
+            ├── mapa_especializado_suape.pdf
         └── 📁favicons
             ├── sipremo.svg
             ├── vite.svg
@@ -75,6 +76,7 @@
                 ├── form.tsx
                 ├── input.tsx
                 ├── label.tsx
+                ├── popover.tsx
                 ├── scroll-area.tsx
                 ├── select.tsx
                 ├── separator.tsx
@@ -121,11 +123,18 @@
                             ├── TriggerActionModal.tsx
                             ├── TriggerBuilderRenderer.tsx
                     └── 📁companies
+                        ├── Chart.tsx
                         ├── CompaniesRenderer.tsx
+                        ├── mock.ts
+                        ├── modal.tsx
+                        ├── types.ts
                     └── 📁contracts
                         ├── ContractsRenderer.tsx
                     └── 📁flow
                         ├── FlowRenderer.tsx
+                        ├── StageCard.tsx
+                        ├── StageConfigForm.tsx
+                        ├── types.ts
                     └── 📁home
                         ├── HomeRenderer.tsx
                     └── 📁login
