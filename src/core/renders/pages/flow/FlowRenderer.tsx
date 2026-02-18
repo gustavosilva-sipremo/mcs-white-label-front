@@ -1,4 +1,5 @@
-import { useState, useCallback } from "react";
+// FlowRenderer.tsx - Atualizado com contadores funcionais
+import { useState, useCallback, useMemo } from "react"; // Adicionado useMemo
 import { Plus, GitBranch, ListChecks, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -8,7 +9,6 @@ import { StageBlock } from "./types";
 import { Separator } from "@/components/ui/separator";
 
 export function FlowRenderer() {
-    // Estado inicial simulando um fluxo real de emergência
     const [stages, setStages] = useState<StageBlock[]>([
         {
             id: "stage-1",
@@ -21,7 +21,17 @@ export function FlowRenderer() {
         },
     ]);
 
-    // Usando useCallback para evitar re-renders desnecessários no StageCard
+    // Cálculo dinâmico dos stats para garantir performance
+    const stats = useMemo(() => {
+        return {
+            steps: stages.length,
+            // Soma o total de notificações configuradas em todos os estágios
+            alerts: stages.reduce((acc, stage) => acc + (stage.notifications?.length || 0), 0),
+            // Conta quantos estágios possuem um formulário vinculado
+            forms: stages.filter(s => s.formId && s.formId !== "").length
+        };
+    }, [stages]);
+
     const addStage = useCallback(() => {
         setStages(prev => {
             const nextNum = prev.length > 0
@@ -39,7 +49,7 @@ export function FlowRenderer() {
             };
             return [...prev, newStage];
         });
-    }, [stages]);
+    }, []); // Removido stages da dependência para evitar recriação desnecessária
 
     const updateStage = useCallback((id: string, data: Partial<StageBlock>) => {
         setStages(prev => prev.map(s => s.id === id ? { ...s, ...data } : s));
@@ -51,11 +61,9 @@ export function FlowRenderer() {
 
     return (
         <div className="relative min-h-screen w-full px-4 pb-32 pt-8 sm:px-6 lg:px-8 bg-background/50">
-            {/* Background estilizado para profundidade */}
             <BackgroundPattern opacity={0.04} size={48} />
 
             <div className="mx-auto max-w-2xl space-y-12 relative">
-                {/* Header Adaptativo */}
                 <header className="space-y-4 px-2">
                     <div className="flex items-center justify-center gap-2 mb-2">
                         <div className="p-2 rounded-xl bg-primary/10 border border-primary/20">
@@ -75,28 +83,27 @@ export function FlowRenderer() {
                         </p>
                     </div>
 
-                    {/* Quick Stats - Útil no mobile para visão geral */}
+                    {/* Stats Atualizados em tempo real */}
                     <div className="grid grid-cols-3 gap-2 pt-4">
                         <div className="flex flex-col items-center p-2 rounded-lg bg-muted/30 border">
-                            <span className="text-lg font-bold">{stages.length}</span>
+                            <span className="text-lg font-bold">{stats.steps}</span>
                             <span className="text-[9px] uppercase text-muted-foreground font-bold">Passos</span>
                         </div>
                         <div className="flex flex-col items-center p-2 rounded-lg bg-muted/30 border">
-                            <span className="text-lg font-bold">
-                                {stages.filter(s => s.isEvacuation).length}
+                            <span className="text-lg font-bold text-orange-600">
+                                {stats.alerts}
                             </span>
-                            <span className="text-[9px] uppercase text-muted-foreground font-bold">Alarmes</span>
+                            <span className="text-[9px] uppercase text-muted-foreground font-bold">Alertas</span>
                         </div>
                         <div className="flex flex-col items-center p-2 rounded-lg bg-muted/30 border">
                             <span className="text-lg font-bold">
-                                {stages.filter(s => s.formId).length}
+                                {stats.forms}
                             </span>
                             <span className="text-[9px] uppercase text-muted-foreground font-bold">Forms</span>
                         </div>
                     </div>
                 </header>
 
-                {/* Pipeline Builder */}
                 <div className="flex flex-col items-center space-y-1">
                     {stages.length > 0 ? (
                         stages.map((stage, index) => (
@@ -115,7 +122,6 @@ export function FlowRenderer() {
                         </div>
                     )}
 
-                    {/* Botão "Acoplar" Refatorado */}
                     <div className="w-full max-w-md pt-4">
                         <Button
                             onClick={addStage}
@@ -136,7 +142,6 @@ export function FlowRenderer() {
                     </div>
                 </div>
 
-                {/* Footer de Status Final */}
                 <footer className="flex flex-col items-center space-y-6 pt-12">
                     <Separator className="max-w-[100px] bg-primary/20" />
                     <div className="flex flex-col items-center">
