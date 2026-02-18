@@ -1,4 +1,6 @@
-import { JSX, useState, useRef, useEffect } from "react";
+"use client";
+
+import { JSX, useEffect, useRef, useState } from "react";
 import {
     MapContainer,
     TileLayer,
@@ -10,27 +12,34 @@ import {
 } from "react-leaflet";
 import { Icon, Map as LeafletMap, LatLngBounds } from "leaflet";
 import "leaflet/dist/leaflet.css";
+
 import markerIconUrl from "leaflet/dist/images/marker-icon.png";
 import markerShadowUrl from "leaflet/dist/images/marker-shadow.png";
-import { BackgroundPattern } from "@/components/others/BackgroundPattern";
 
-// --------------------
-// Configurações do Mapa
-// --------------------
+import { BackgroundPattern } from "@/components/others/BackgroundPattern";
+import { MapPdfViewerModal } from "@/components/others/MapPdfViewerModal";
+import { Button } from "@/components/ui/button";
+
+import { FileText } from "lucide-react";
+
+/* -------------------------------------------------------------------------- */
+/*                               MAP SETTINGS                                 */
+/* -------------------------------------------------------------------------- */
+
 const PORTO_SUAPE: [number, number] = [-8.3719, -34.9501];
 const DEFAULT_ZOOM = 15;
 const MIN_ZOOM = 2;
 const MAX_ZOOM = 18;
 
-// Limites do mundo para o mapa
-const WORLD_BOUNDS: LatLngBounds = new LatLngBounds(
-    [-90, -180], // sudoeste
-    [90, 180]    // nordeste
+const WORLD_BOUNDS = new LatLngBounds(
+    [-90, -180],
+    [90, 180]
 );
 
-// --------------------
-// Ícone padrão para marcador
-// --------------------
+/* -------------------------------------------------------------------------- */
+/*                               MARKER ICON                                  */
+/* -------------------------------------------------------------------------- */
+
 const defaultMarkerIcon = new Icon({
     iconUrl: markerIconUrl,
     shadowUrl: markerShadowUrl,
@@ -39,118 +48,142 @@ const defaultMarkerIcon = new Icon({
     popupAnchor: [0, -35],
 });
 
-// --------------------
-// Placeholder de carregamento
-// --------------------
+/* -------------------------------------------------------------------------- */
+/*                              PLACEHOLDER                                   */
+/* -------------------------------------------------------------------------- */
+
 function MapPlaceholder(): JSX.Element {
     return (
         <>
             <BackgroundPattern opacity={0.1} size={64} />
-            <div className="absolute top-0 left-0 w-full h-full z-20 flex items-center justify-center bg-gray-100 text-gray-500 animate-pulse">
+            <div className="absolute inset-0 z-20 flex items-center justify-center bg-gray-100 text-gray-500 animate-pulse">
                 Carregando mapa...
             </div>
         </>
     );
 }
 
-// --------------------
-// Eventos de clique para adicionar marcadores
-// --------------------
+/* -------------------------------------------------------------------------- */
+/*                            MAP INTERACTIONS                                 */
+/* -------------------------------------------------------------------------- */
+
 interface MapInteractionProps {
-    addMarker: (latlng: { lat: number; lng: number }) => void;
+    onAddMarker: (latlng: { lat: number; lng: number }) => void;
 }
 
-function MapInteraction({ addMarker }: MapInteractionProps): null {
+function MapInteraction({ onAddMarker }: MapInteractionProps): null {
     useMapEvents({
-        click: (e) => addMarker(e.latlng),
+        click: (e) => onAddMarker(e.latlng),
     });
+
     return null;
 }
 
-// --------------------
-// Componente principal do mapa
-// --------------------
+/* -------------------------------------------------------------------------- */
+/*                              MAIN COMPONENT                                 */
+/* -------------------------------------------------------------------------- */
+
 export function MapsRenderer(): JSX.Element {
-    const [mapLoaded, setMapLoaded] = useState<boolean>(false);
+    const [mapLoaded, setMapLoaded] = useState(false);
     const [markers, setMarkers] = useState<{ lat: number; lng: number }[]>([]);
+    const [openPdf, setOpenPdf] = useState(false);
+
     const mapRef = useRef<LeafletMap | null>(null);
 
-    // --------------------
-    // Adiciona marcador
-    // --------------------
-    const addMarker = (latlng: { lat: number; lng: number }): void => {
-        setMarkers((prev) => [...prev, latlng]);
-    };
+    /* ----------------------------- Marker logic ---------------------------- */
 
-    // --------------------
-    // Configurações do mapa após carregar
-    // --------------------
+    function addMarker(latlng: { lat: number; lng: number }) {
+        setMarkers((prev) => [...prev, latlng]);
+    }
+
+    /* -------------------------- Map configuration -------------------------- */
+
     useEffect(() => {
         if (!mapRef.current) return;
 
         const map = mapRef.current;
 
-        // Define limites e zoom
         map.setMinZoom(MIN_ZOOM);
         map.setMaxZoom(MAX_ZOOM);
         map.setMaxBounds(WORLD_BOUNDS);
 
-        // Suaviza o efeito de "bounce back"
         map.on("move", () => {
             const center = map.getCenter();
+
             if (!WORLD_BOUNDS.contains(center)) {
-                const clampedLat = Math.max(Math.min(center.lat, 90), -90);
-                const clampedLng = Math.max(Math.min(center.lng, 180), -180);
-                map.panTo([clampedLat, clampedLng], { animate: true, duration: 0.3 });
+                map.panTo(
+                    [
+                        Math.max(Math.min(center.lat, 90), -90),
+                        Math.max(Math.min(center.lng, 180), -180),
+                    ],
+                    { animate: true, duration: 0.3 }
+                );
             }
         });
-
     }, [mapLoaded]);
 
+    /* ------------------------------- Render -------------------------------- */
+
     return (
-        <div className="relative w-full flex flex-col items-center justify-center px-4 py-6">
+        <div className="relative w-full px-4 py-6 flex justify-center">
             <BackgroundPattern opacity={0.1} size={64} />
-            <div className="relative w-full max-w-full sm:max-w-6xl  h-[360px] sm:h-[60vh] md:h-[736px] rounded-lg z-10 overflow-hidden shadow-lg border border-gray-200 bg-[#f2f4f7]">
-                {/* Placeholder por cima do mapa */}
+            <div className="relative w-full max-w-6xl h-[360px] sm:h-[60vh] md:h-[736px] overflow-hidden rounded-lg border bg-[#f2f4f7] shadow-lg z-[9]">
+                {/* Botão dentro do mapa */}
+                <div className="absolute top-4 left-4 z-[1001]">
+                    <Button
+                        size="sm"
+                        className="gap-2 shadow-md backdrop-blur text-primary bg-background/90 hover:bg-background/80"
+                        onClick={() => setOpenPdf(true)}
+                    >
+                        <FileText className="h-4 w-4" />
+                        Mapa em PDF
+                    </Button>
+                </div>
+
                 {!mapLoaded && <MapPlaceholder />}
 
                 <MapContainer
-                    center={{ lat: PORTO_SUAPE[0], lng: PORTO_SUAPE[1] }}
+                    ref={mapRef}
+                    center={PORTO_SUAPE}
                     zoom={DEFAULT_ZOOM}
                     minZoom={MIN_ZOOM}
                     maxZoom={MAX_ZOOM}
-                    scrollWheelZoom={true}
+                    scrollWheelZoom
                     zoomControl={false}
-                    className="w-full h-full cursor-grab"
-                    ref={mapRef}
-                    whenReady={() => setMapLoaded(true)}
                     maxBounds={WORLD_BOUNDS}
-                    maxBoundsViscosity={0.8} // efeito mais suave de "bounce"
+                    maxBoundsViscosity={0.8}
+                    whenReady={() => setMapLoaded(true)}
+                    className="w-full h-full cursor-grab"
                 >
-                    {/* Interações do mapa */}
-                    <MapInteraction addMarker={addMarker} />
+                    <MapInteraction onAddMarker={addMarker} />
 
-                    {/* Controles */}
                     <ZoomControl position="topright" />
                     <ScaleControl position="bottomleft" />
 
-                    {/* Tile Layer moderno */}
                     <TileLayer
                         url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
                         subdomains={["a", "b", "c", "d"]}
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>'
+                        attribution='&copy; OpenStreetMap &copy; CARTO'
                     />
 
-                    {/* Marcadores */}
                     {markers.map((pos, idx) => (
                         <Marker key={idx} position={pos} icon={defaultMarkerIcon}>
                             <Popup>
-                                Marcador {idx + 1}: <br />
-                                Lat: {pos.lat.toFixed(5)}, Lng: {pos.lng.toFixed(5)}
+                                Marcador {idx + 1}
+                                <br />
+                                Lat: {pos.lat.toFixed(5)}
+                                <br />
+                                Lng: {pos.lng.toFixed(5)}
                             </Popup>
                         </Marker>
                     ))}
                 </MapContainer>
+
+                <MapPdfViewerModal
+                    open={openPdf}
+                    onOpenChange={setOpenPdf}
+                    pdfUrl="/documents/mapa_especializado_suape.pdf"
+                />
             </div>
         </div>
     );
