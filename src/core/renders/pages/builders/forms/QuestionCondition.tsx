@@ -49,7 +49,7 @@ export function QuestionCondition({
                 {question.condition && (
                     <Input
                         placeholder="Valor esperado"
-                        value={question.condition.value}
+                        value={String(question.condition.value)}
                         onChange={(e) =>
                             onUpdate({
                                 ...question,
