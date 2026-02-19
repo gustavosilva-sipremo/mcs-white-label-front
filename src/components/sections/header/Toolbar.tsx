@@ -85,7 +85,7 @@ export function Toolbar({
                         <MapPin className="w-5 h-5" />
                     </Button>
 
-                    <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-red-500 ring-1 ring-background animate-pulse" />
+                    {/* <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-red-500 ring-1 ring-background animate-pulse" /> */}
                 </a>
             </div>
 
