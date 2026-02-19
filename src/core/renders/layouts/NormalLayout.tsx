@@ -5,8 +5,14 @@ import { BackgroundPattern } from "@/components/others/BackgroundPattern";
 import { Watermark } from "@/components/others/Watermark";
 import { BrandingLogo } from "@/components/others/BrandingLogo";
 
+import { useContract } from "@/core/contracts/contract-provider";
+import { getBrandingLogoClass } from "@/lib/utils";
+
 export function NormalLayout() {
   const location = useLocation();
+  const contract = useContract();
+
+  const logoClass = getBrandingLogoClass(contract, "lg");
 
   return (
     <div className="flex min-h-screen bg-background relative">
@@ -24,7 +30,7 @@ export function NormalLayout() {
         <div className="w-full max-w-md bg-card/90 text-card-foreground rounded-2xl shadow-lg p-8 sm:p-10 border">
           {/* Logo */}
           <div className="flex justify-center mb-8 select-none">
-            <BrandingLogo className="h-26 sipremo-logo-lg" />
+            <BrandingLogo className={`h-26 ${logoClass}`} />
           </div>
 
           {/* Conteúdo */}

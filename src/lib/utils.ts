@@ -1,6 +1,8 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
+import { Contract } from "@/core/contracts/contract-provider";
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -72,4 +74,22 @@ export function getAccountTypeLabel(value: string): string {
   };
 
   return map[value] ?? value;
+}
+
+/**
+ * Troca a logo com base no nome do app por contrato
+ */
+export function getBrandingLogoClass(
+  contract: Contract,
+  size: "default" | "lg" = "default",
+) {
+  const appName = contract.app.name.toLowerCase();
+
+  const isSuape = appName.includes("suape");
+
+  if (isSuape) {
+    return size === "lg" ? "suape-logo-lg" : "suape-logo";
+  }
+
+  return size === "lg" ? "sipremo-logo-lg" : "sipremo-logo";
 }
