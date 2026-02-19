@@ -19,6 +19,8 @@
                 ├── BackgroundPattern.tsx
                 ├── BrandingLogo.tsx
                 ├── CodeInput.tsx
+                ├── LanguageSwitcher.tsx
+                ├── MapButton.tsx
                 ├── MapPdfViewerModal.tsx
                 ├── PageLoader.tsx
                 ├── UserMultiSelect.tsx
@@ -89,8 +91,8 @@
         └── 📁core
             └── 📁contracts
                 └── 📁jsons
+                    ├── contract-sipremo.json
                     ├── contract-suape.json
-                    ├── contract.json
                 ├── contract-provider.tsx
             └── 📁renders
                 └── 📁layouts
@@ -137,6 +139,13 @@
                         ├── StageConfigForm.tsx
                         ├── types.ts
                     └── 📁home
+                        ├── home.logic.ts
+                        ├── home.meta.ts
+                        ├── home.mock.ts
+                        ├── HomeRenderer.tsx
+                        ├── ScenarioCard.tsx
+                        ├── ScenarioGroup.tsx
+                    └── 📁home_public
                         ├── HomeRenderer.tsx
                     └── 📁login
                         ├── LoginRenderer.tsx
@@ -167,6 +176,8 @@
                                 ├── mockForms.ts
                                 ├── QuestionStep.tsx
                             └── 📁messages
+                            └── 📁routes
+                                ├── RoutesTester.tsx
                         ├── TestsRenderer.tsx
                     └── 📁users
                         ├── UsersRenderer.tsx

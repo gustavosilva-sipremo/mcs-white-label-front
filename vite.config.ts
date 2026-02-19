@@ -28,7 +28,7 @@ export default defineConfig({
         manualChunks: {
           // Separa bibliotecas grandes em chunks distintos para melhor cache do navegador
           "vendor-maps": ["leaflet", "react-leaflet"],
-          "vendor-ui": ["framer-motion", "lucide-react", "recharts"],
+          "vendor-ui": ["framer-motion", "lucide-react"],
         },
       },
     },
