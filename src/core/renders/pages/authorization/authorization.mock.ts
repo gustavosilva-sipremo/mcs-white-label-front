@@ -128,7 +128,7 @@ export const SENSITIVE_ROUTES: SensitiveRoute[] = [
     },
   },
   {
-    route: "/flows",
+    route: "/flow",
     category: "Sipremo",
     sipremoOnly: true,
     capabilities: {

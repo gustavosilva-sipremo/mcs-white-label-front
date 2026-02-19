@@ -88,6 +88,11 @@ const sidebarCategories: SidebarCategory[] = [
         icon: <Blocks className="w-5 h-5" />,
       },
       {
+        label: "Fluxo",
+        href: "/flow",
+        icon: <Workflow className="w-5 h-5" />,
+      },
+      {
         label: "Questionários",
         href: "/questions",
         icon: <ClipboardPen className="w-5 h-5" />,
@@ -101,11 +106,6 @@ const sidebarCategories: SidebarCategory[] = [
         label: "Autorizações",
         href: "/authorizations",
         icon: <KeyRound className="w-5 h-5" />,
-      },
-      {
-        label: "Fluxos",
-        href: "/flows",
-        icon: <Workflow className="w-5 h-5" />,
       },
     ],
   },

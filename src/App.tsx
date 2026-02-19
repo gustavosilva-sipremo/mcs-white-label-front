@@ -55,8 +55,8 @@ export default function App() {
           {/* Rota de Autorizações */}
           <Route path="/authorizations" element={<AuthorizationRenderer />} />
 
-          {/* Rota de Fluxos */}
-          <Route path="/flows" element={<FlowRenderer />} />
+          {/* Rota de Fluxo */}
+          <Route path="/flow" element={<FlowRenderer />} />
 
           {/* Rota de Empresas */}
           <Route path="/companies" element={<CompaniesRenderer />} />
