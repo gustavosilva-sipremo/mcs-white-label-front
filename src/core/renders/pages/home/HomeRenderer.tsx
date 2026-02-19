@@ -33,7 +33,10 @@ export function HomeRenderer() {
           </p>
         </div>
 
-        <Button size="lg" className="hidden sm:flex h-12 gap-2 shadow-lg">
+        <Button
+          size="lg"
+          className="sm:flex h-12 gap-2 shadow-lg"
+        >
           <Plus className="w-5 h-5" />
           Criar novo cenário
         </Button>
