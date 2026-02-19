@@ -33,10 +33,7 @@ export function HomeRenderer() {
           </p>
         </div>
 
-        <Button
-          size="lg"
-          className="sm:flex h-12 gap-2 shadow-lg"
-        >
+        <Button size="lg" className="sm:flex h-12 gap-2 shadow-lg">
           <Plus className="w-5 h-5" />
           Criar novo cenário
         </Button>
@@ -68,21 +65,15 @@ export function HomeRenderer() {
 
           <Button
             variant={logic.dateEnabled ? "default" : "outline"}
-            onClick={() =>
-              logic.setDateEnabled((v) => !v)
-            }
+            onClick={() => logic.setDateEnabled((v) => !v)}
           >
-            {logic.dateEnabled
-              ? "Filtro ativo"
-              : "Ativar filtro"}
+            {logic.dateEnabled ? "Filtro ativo" : "Ativar filtro"}
           </Button>
         </div>
 
         <Button
           variant="outline"
-          onClick={() =>
-            logic.setShowOld((v) => !v)
-          }
+          onClick={() => logic.setShowOld((v) => !v)}
         >
           {logic.showOld
             ? "Ocultar finalizados"
@@ -94,8 +85,7 @@ export function HomeRenderer() {
       <div className="relative z-10 flex flex-col gap-6">
         {logic.presetsWithScenarios.map(
           ({ preset, active, finished }) => {
-            if (!active.length && !finished.length)
-              return null;
+            const isEmpty = !active.length && !finished.length;
 
             const meta = PRESET_META[preset.id];
             const Icon = meta.icon;
@@ -105,27 +95,53 @@ export function HomeRenderer() {
                 key={preset.id}
                 className="rounded-2xl border bg-card p-5 shadow-sm"
               >
-                <header className="flex gap-3 mb-4">
-                  <div className={cn("rounded-lg p-4", meta.bg)}>
-                    <Icon className={cn("w-4 h-4", meta.color)} />
+                <header className="flex items-center justify-between mb-4">
+                  <div className="flex gap-3">
+                    <div
+                      className={cn("rounded-lg p-4", meta.bg)}
+                    >
+                      <Icon
+                        className={cn("w-4 h-4", meta.color)}
+                      />
+                    </div>
+
+                    <div>
+                      <p className="font-semibold">
+                        {preset.name}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {preset.description}
+                      </p>
+                    </div>
                   </div>
 
-                  <div>
-                    <p className="font-semibold">
-                      {preset.name}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {preset.description}
-                    </p>
-                  </div>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                  >
+                    <Plus className="w-4 h-4 mr-1" />
+                    Criar cenário
+                  </Button>
                 </header>
 
-                <ScenarioGroup title="Ativos" items={active} />
-                {logic.showOld && (
-                  <ScenarioGroup
-                    title="Finalizados"
-                    items={finished}
-                  />
+                {isEmpty ? (
+                  <p className="text-sm text-muted-foreground">
+                    Nenhum cenário criado ainda.
+                  </p>
+                ) : (
+                  <>
+                    <ScenarioGroup
+                      title="Ativos"
+                      items={active}
+                    />
+
+                    {logic.showOld && (
+                      <ScenarioGroup
+                        title="Finalizados"
+                        items={finished}
+                      />
+                    )}
+                  </>
                 )}
               </section>
             );
