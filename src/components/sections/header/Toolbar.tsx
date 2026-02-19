@@ -18,7 +18,7 @@ export function Toolbar({
     return (
         <div
             className={cn(
-                "flex items-center",
+                "flex items-center mt-1",
                 compactMobile ? "gap-1 sm:gap-3" : "gap-3",
                 className
             )}

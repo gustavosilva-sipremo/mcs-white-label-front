@@ -5,7 +5,8 @@
   },
   "branding": {
     "logo": {
-      "default": "/images/logo_suape.png"
+      "default": "/images/logo_suape.png",
+      "invert": false
     }
   },
   "theme": {
@@ -13,11 +14,6 @@
     "allowToggle": true,
 
     "themes": [
-      {
-        "id": "light",
-        "label": "Light",
-        "supports": ["light"]
-      },
       {
         "id": "mcs-suape",
         "label": "Porto Suape",

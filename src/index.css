@@ -132,4 +132,20 @@
   .font-tabular {
     font-variant-numeric: tabular-nums;
   }
+
+  .sipremo-logo {
+    @apply max-w-64;
+  }
+
+  .sipremo-logo-lg {
+    @apply max-w-72;
+  }
+
+  .suape-logo {
+    @apply max-w-10 ml-2;
+  }
+
+  .suape-logo-lg {
+    @apply max-w-32;
+  }
 }

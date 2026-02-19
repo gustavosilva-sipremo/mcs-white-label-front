@@ -17,7 +17,7 @@ export function Header({ onMenuClick }: HeaderProps) {
   };
 
   return (
-    <header className="flex items-center w-full gap-3 px-4 sm:px-6 py-3 sm:py-4 border-b bg-background border-border shadow-sm">
+    <header className="flex items-center w-full gap-3 px-4 sm:px-6 py-3 sm:py-4 border-b bg-background border-border shadow-sm overflow-hidden max-h-20">
       {/* Menu */}
       <button
         type="button"
@@ -29,8 +29,8 @@ export function Header({ onMenuClick }: HeaderProps) {
       </button>
 
       {/* Logo */}
-      <a href="/" className="flex-shrink-0">
-        <BrandingLogo className="w-24 sm:w-32 h-auto" />
+      <a href="/" draggable={false} className="flex-shrink-0">
+        <BrandingLogo className="hidden sm:block h-auto sipremo-logo" />
       </a>
 
       <div className="flex-1" />

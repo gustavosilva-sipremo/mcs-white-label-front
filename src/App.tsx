@@ -26,6 +26,7 @@ import { AuthorizationRenderer } from "@/core/renders/pages/authorization/Author
 import { FlowRenderer } from "./core/renders/pages/flow/FlowRenderer";
 import { CompaniesRenderer } from "./core/renders/pages/companies/CompaniesRenderer";
 import { ContractsRenderer } from "./core/renders/pages/contracts/ContractsRenderer";
+import { PublicHomeRenderer } from "./core/renders/pages/home_public/HomeRenderer";
 
 export default function App() {
   return (
@@ -83,12 +84,15 @@ export default function App() {
           <Route path="/password/code" element={<PassEmailCodeRenderer />} />
           <Route path="/password/reset" element={<PassResetRenderer />} />
 
+          {/* Rota de acionamento publico - Sem layout */}
+          <Route path="/public-occurrence-trigger" element={<PublicHomeRenderer />} />
+
           {/* Rota 404 */}
           <Route path="*" element={<NotFoundRenderer />} />
         </Route>
 
         {/* Rota Termos - Sem layout */}
-        <Route path="/terms" element={<TermsRenderer />} />
+        <Route path="/terms" element={<TermsRenderer />} />z
       </Routes>
     </BrowserRouter>
   );

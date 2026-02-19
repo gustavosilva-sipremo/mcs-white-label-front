@@ -24,7 +24,7 @@ export function NormalLayout() {
         <div className="w-full max-w-md bg-card/90 text-card-foreground rounded-2xl shadow-lg p-8 sm:p-10 border">
           {/* Logo */}
           <div className="flex justify-center mb-8 select-none">
-            <BrandingLogo className="h-26 w-auto" />
+            <BrandingLogo className="h-26 sipremo-logo-lg" />
           </div>
 
           {/* Conteúdo */}

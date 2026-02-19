@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import contract from "./jsons/contract.json";
+import contract from "./jsons/contract-sipremo.json";
 
 export type Contract = typeof contract;
 

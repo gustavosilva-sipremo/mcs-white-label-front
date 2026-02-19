@@ -36,7 +36,7 @@ export function BrandingLogo({
 
   return (
     <img
-      src={logoSrc}
+      src={String(logoSrc)}
       alt={alt ?? `${contract.app.name} logo`}
       draggable={draggable}
       className={clsx("select-none", invert && "dark:invert", className)}
