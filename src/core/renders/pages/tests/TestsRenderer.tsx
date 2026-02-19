@@ -2,6 +2,7 @@ import {
     ClipboardPen,
     MessageCircleMore,
     Workflow,
+    Route,
     ArrowRight,
 } from "lucide-react";
 
@@ -104,6 +105,14 @@ export function TestsRenderer() {
                         title="Teste de Fluxos"
                         description="Valide fluxos completos combinando formulários, decisões e acionamentos."
                         icon={Workflow}
+                    />
+
+                    <TestCard
+                        title="Teste de Rotas"
+                        description="Verifique o acesso às páginas da plataforma."
+                        icon={Route}
+                        enabled
+                        href="/tests/routes"
                     />
                 </section>
             </div>
