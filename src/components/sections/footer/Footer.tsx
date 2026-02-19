@@ -9,7 +9,7 @@ export function Footer() {
       <span>
         © {year} <strong>{app.name}</strong>
       </span>
-      <span className="text-xs text-muted-foreground/70">
+      <span className="hidden sm:block text-xs text-muted-foreground/70">
         Environment:{" "}
         <span className="capitalize text-green-500">Development</span>
       </span>
