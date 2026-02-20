@@ -149,3 +149,8 @@
     @apply max-w-32;
   }
 }
+
+/* Evita stroke “engordar” durante zoom / flyTo */
+.leaflet-interactive {
+  vector-effect: non-scaling-stroke;
+}

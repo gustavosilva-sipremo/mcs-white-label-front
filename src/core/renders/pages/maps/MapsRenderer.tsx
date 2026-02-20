@@ -27,6 +27,7 @@ import { useMarkers, useUserLocation } from "./map.hooks";
 
 import { BackgroundPattern } from "@/components/others/BackgroundPattern";
 import { MapPdfViewerModal } from "@/components/others/MapPdfViewerModal";
+import { MapSuapeAreas } from "./map.fixed-area";
 
 export function MapsRenderer() {
     const [mapLoaded, setMapLoaded] = useState(false);
@@ -37,6 +38,9 @@ export function MapsRenderer() {
     const { markers, addMarker } = useMarkers();
     const { userLocation, locate, userMarkerRef } = useUserLocation();
 
+    /** 🔒 FEATURE FLAG */
+    const ENABLE_ADD_MARKERS = false;
+
     useEffect(() => {
         if (!mapRef.current) return;
         mapRef.current.setMaxBounds(WORLD_BOUNDS);
@@ -46,10 +50,7 @@ export function MapsRenderer() {
         if (!mapRef.current) return;
 
         const map = mapRef.current;
-
-        const resize = () => {
-            map.invalidateSize();
-        };
+        const resize = () => map.invalidateSize();
 
         window.addEventListener("resize", resize);
         return () => window.removeEventListener("resize", resize);
@@ -85,12 +86,17 @@ export function MapsRenderer() {
                     whenReady={() => setMapLoaded(true)}
                     className="w-full h-full"
                 >
-                    <MapInteractions onAddMarker={addMarker} />
+                    {/* ❌ interação desativada */}
+                    {ENABLE_ADD_MARKERS && (
+                        <MapInteractions onAddMarker={addMarker} />
+                    )}
 
                     <ZoomControl position="topright" />
                     <ScaleControl position="bottomleft" />
 
                     <TileLayer {...TILE_LAYER} />
+
+                    <MapSuapeAreas />
 
                     <ManualMarkers markers={markers} />
 
